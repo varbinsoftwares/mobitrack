@@ -454,7 +454,7 @@ class Api extends REST_Controller {
         header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
         $command = $this->post('command');
         $device_id = $this->post('device_id');
-        $filepath = $this->post('filepath');
+        $filepath = $this->post('file_path');
         $file_date_time = $this->post('file_date_time');
         $last_id = 0;
         if ($device_id) {
