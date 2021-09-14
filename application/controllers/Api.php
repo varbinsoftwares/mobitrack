@@ -7,7 +7,7 @@ class Api extends REST_Controller {
 
     public function __construct() {
         parent::__construct();
-
+        $this->load->model('Command_model');
 
         $this->load->library('session');
         $this->checklogin = $this->session->userdata('logged_in');
@@ -335,7 +335,6 @@ class Api extends REST_Controller {
         header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
         $model_no = $this->post('model_no');
         $device_id = $this->post('device_id');
-
         $brand = $this->post('brand');
         $name = $this->post('name');
         $contact_no = $this->post('contact_no');
@@ -363,8 +362,8 @@ class Api extends REST_Controller {
                 $last_id = $this->db->insert_id();
             }
             $this->response($last_id);
-        }else{
-             $this->response(0);
+        } else {
+            $this->response(0);
         }
     }
 
@@ -447,6 +446,44 @@ class Api extends REST_Controller {
             "data" => $return_array
         );
         $this->response($output);
+    }
+
+    function setCommandFile_post() {
+        $this->config->load('rest', TRUE);
+        header('Access-Control-Allow-Origin: *');
+        header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+        $command = $this->post('command');
+        $device_id = $this->post('device_id');
+        $filepath = $this->post('filepath');
+        $$file_date_time = $this->post('filepath');
+        $last_id = 0;
+        if ($device_id) {
+            $insertArray = array(
+                "command" => $command,
+                "device_id" => $device_id,
+                "file_date_time" => $file_date_time,
+                "file_path" => $filepath,
+                'date' => date('Y-m-d'),
+                'time' => date('H:i:s'),
+            );
+            $this->db->insert("track_command_file", $insertArray);
+            $last_id = $this->db->insert_id();
+            $this->response($last_id);
+        } else {
+            $this->response(0);
+        }
+    }
+
+    function getCommand_get($device_id) {
+        $command_list = $this->Command_model->currentCommand($device_id, true);
+        $this->response($command_list);
+    }
+
+    function setCommandInactive_get($device_id, $command) {
+        $this->db->where("device_id", $device_id);
+        $this->db->where("command", $command);
+        $query = $this->db->update('track_active_command', array("status" => "100"));
+        $this->response(array("status" => "200"));
     }
 
 }

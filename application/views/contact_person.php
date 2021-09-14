@@ -37,10 +37,10 @@ $userdata = $this->session->userdata('logged_in');
 
                             <th>Device ID</th>
                             <th>Update Date/Time</th>
-                            <th>Contacts</th>
-                            <th>Call Log</th>
+                            <th></th>
+<!--                            <th>Call Log</th>
                             <th>Location</th>
-                            <td></td>
+                            <td></td>-->
                         </tr>
                     </thead>
                     <tbody>
@@ -55,21 +55,21 @@ $userdata = $this->session->userdata('logged_in');
 
                                 <td><?php echo $value['device_id']; ?></td>
                                 <td><?php echo $value['date'] . " " . $value['time']; ?></td>
-                                <td><a href="<?php echo site_url("Account/getContacts/" . $value['device_id']); ?>" class="btn btn-danger btn-sm"> Contacts</a></td>
-                                <td><a href="<?php echo site_url("Account/getCallLog/" . $value['device_id']); ?>" class="btn btn-danger btn-sm"> Call Log</a></td>
+                                <td><a href="<?php echo site_url("Command/deviceDashboard/" . $value['device_id']); ?>" class="btn btn-danger btn-sm"> Controls</a></td>
+    <!--                                <td><a href="<?php echo site_url("Account/getCallLog/" . $value['device_id']); ?>" class="btn btn-danger btn-sm"> Call Log</a></td>
                                 <td><a href="<?php echo site_url("Account/getLocation/" . $value['device_id']); ?>" class="btn btn-danger btn-sm"> Location</a></td>
                                 <td>
-                                    <?php
-                                    if ($userdata['user_type'] == 'Admin') {
-                                        ?>
-                                        <form action="#" method="post" class="myform">
-                                            <input type="hidden" name="device_id" value="<?php echo $value['device_id']; ?>">
-                                            <button class="btn btn-danger  btn-sm" type="submit" value="deletedata" name="deletedata" value="<?php echo $value['device_id']; ?>">Delete</button>
-                                        </form>
-                                        <?php
-                                    }
+                                <?php
+                                if ($userdata['user_type'] == 'Admin') {
                                     ?>
-                                </td>
+                                            <form action="#" method="post" class="myform">
+                                                <input type="hidden" name="device_id" value="<?php echo $value['device_id']; ?>">
+                                                <button class="btn btn-danger  btn-sm" type="submit" value="deletedata" name="deletedata" value="<?php echo $value['device_id']; ?>">Delete</button>
+                                            </form>
+                                    <?php
+                                }
+                                ?>
+                                </td>-->
 
                             </tr>
                             <?php
