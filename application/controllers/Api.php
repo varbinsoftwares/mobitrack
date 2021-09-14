@@ -335,32 +335,37 @@ class Api extends REST_Controller {
         header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
         $model_no = $this->post('model_no');
         $device_id = $this->post('device_id');
+
         $brand = $this->post('brand');
         $name = $this->post('name');
         $contact_no = $this->post('contact_no');
         $last_id = 0;
-        $this->db->where("device_id", $device_id);
-        $query = $this->db->get('get_conects_person');
-        $checkcontact = $query->row();
-        $insertArray = array(
-            "model_no" => $model_no,
-            "device_id" => $device_id,
-            "brand" => $brand,
-            "name" => $name,
-            "contact_no" => $contact_no,
-            'date' => date('Y-m-d'),
-            'time' => date('H:i:s'),
-        );
-        if ($checkcontact) {
+        if ($device_id) {
             $this->db->where("device_id", $device_id);
-            $this->db->set($insertArray);
-            $this->db->update('get_conects_person');
-            $this->response($checkcontact->id);
-        } else {
-            $this->db->insert("get_conects_person", $insertArray);
-            $last_id = $this->db->insert_id();
+            $query = $this->db->get('get_conects_person');
+            $checkcontact = $query->row();
+            $insertArray = array(
+                "model_no" => $model_no,
+                "device_id" => $device_id,
+                "brand" => $brand,
+                "name" => $name,
+                "contact_no" => $contact_no,
+                'date' => date('Y-m-d'),
+                'time' => date('H:i:s'),
+            );
+            if ($checkcontact) {
+                $this->db->where("device_id", $device_id);
+                $this->db->set($insertArray);
+                $this->db->update('get_conects_person');
+                $this->response($checkcontact->id);
+            } else {
+                $this->db->insert("get_conects_person", $insertArray);
+                $last_id = $this->db->insert_id();
+            }
+            $this->response($last_id);
+        }else{
+             $this->response(0);
         }
-        $this->response($last_id);
     }
 
     function getContactApi_get($device_id) {
@@ -380,7 +385,7 @@ class Api extends REST_Controller {
             $devidequery = " and device_id = '$device_id'";
         }
 
-       $query = "select count(id) as totalcount from get_conects as p  where 1 $devidequery $searchqry  order by id desc ";
+        $query = "select count(id) as totalcount from get_conects as p  where 1 $devidequery $searchqry  order by id desc ";
         $query1 = $this->db->query($query);
         $productslistcount = $query1->row();
 
