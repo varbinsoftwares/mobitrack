@@ -476,7 +476,12 @@ class Api extends REST_Controller {
 
     function getCommand_get($device_id) {
         $command_list = $this->Command_model->currentCommand($device_id, true);
-        $this->response($command_list);
+        $command_list2 = [];
+        foreach ($command_list as $key => $value) {
+            array_push($command_list2, $value);
+            
+        }
+        $this->response($command_list2);
     }
 
     function setCommandInactive_get($device_id, $command) {
