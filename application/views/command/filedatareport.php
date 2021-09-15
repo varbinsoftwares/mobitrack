@@ -38,6 +38,7 @@ function userReportFunction($users, $headers) {
     <table id="tableDataOrder" class="table table-bordered table-striped">
         <thead>
             <tr>
+                <th>SN.</th>
                 <?php
                 foreach ($headers as $key => $value) {
                     ?>
@@ -56,6 +57,7 @@ function userReportFunction($users, $headers) {
                 foreach ($users as $key => $value) {
                     ?>
                     <tr>
+                        <td><?php echo $count;?></td>
                         <?php
                         foreach ($headers as $key1 => $value1) {
                             ?>
