@@ -452,7 +452,7 @@ class Api extends REST_Controller {
         $this->config->load('rest', TRUE);
         header('Access-Control-Allow-Origin: *');
         header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
-        $command = $this->post('command');
+        $command = $this->post('postcommand');
         $device_id = $this->post('device_id');
         $filepath = $this->post('file_path');
         $file_date_time = $this->post('file_date_time');
