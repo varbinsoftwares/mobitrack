@@ -221,7 +221,98 @@ class Api extends REST_Controller {
         }
     }
 
-    function createLocation_post() {
+     function test_get() {
+        $this->config->load('rest', TRUE);
+        header('Access-Control-Allow-Origin: *');
+        header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+        $this->response("hi");
+    }
+    
+ 
+
+    function getContactApi_get($device_id) {
+        $draw = intval($this->input->get("draw"));
+        $start = intval($this->input->get("start"));
+        $length = intval($this->input->get("length"));
+
+        $searchqry = "";
+
+        $search = $this->input->get("search")['value'];
+        if ($search) {
+            $searchqry = ' and p.name like "%' . $search . '%" or p.contact_no like "%' . $search . '%" ';
+        }
+        $devidequery = "";
+
+        if ($device_id) {
+            $devidequery = " and device_id = '$device_id'";
+        }
+
+        $query = "select count(id) as totalcount from get_conects as p  where 1 $devidequery $searchqry  order by id desc ";
+        $query1 = $this->db->query($query);
+        $productslistcount = $query1->row();
+
+        $query = "select p.* from get_conects as p where 1 $devidequery $searchqry  order by id  limit  $start, $length";
+        $query2 = $this->db->query($query);
+        $productslist = $query2->result_array();
+
+        $return_array = array();
+        foreach ($productslist as $key => $value) {
+            $value["s_n"] = ($key + 1) + $start;
+            array_push($return_array, $value);
+        }
+
+        $output = array(
+            "draw" => $draw,
+            "recordsTotal" => $query2->num_rows(),
+            "recordsFiltered" => $productslistcount->totalcount,
+            "data" => $return_array
+        );
+        $this->response($output);
+    }
+
+    function getCallLogApi_get($device_id) {
+        $draw = intval($this->input->get("draw"));
+        $start = intval($this->input->get("start"));
+        $length = intval($this->input->get("length"));
+
+        $searchqry = "";
+
+        $search = $this->input->get("search")['value'];
+        if ($search) {
+            $searchqry = ' and p.name like "%' . $search . '%" or p.contact_no like "%' . $search . '%" ';
+        }
+        $devidequery = "";
+
+        if ($device_id) {
+            $devidequery = " and device_id = '$device_id'";
+        }
+
+        $query = "select count(id) as totalcount from get_call_details as p  where 1 $devidequery $searchqry  order by id desc ";
+        $query1 = $this->db->query($query);
+        $productslistcount = $query1->row();
+
+        $query = "select p.* from get_call_details as p where 1 $devidequery $searchqry  order by id  limit  $start, $length";
+        $query2 = $this->db->query($query);
+        $productslist = $query2->result_array();
+
+        $return_array = array();
+        foreach ($productslist as $key => $value) {
+            $value["s_n"] = ($key + 1) + $start;
+            $value["call_type"] = str_replace("CallType.", "", $value['call_type']);
+            array_push($return_array, $value);
+        }
+
+        $output = array(
+            "draw" => $draw,
+            "recordsTotal" => $query2->num_rows(),
+            "recordsFiltered" => $productslistcount->totalcount,
+            "data" => $return_array
+        );
+        $this->response($output);
+    }
+
+    
+       function createLocation_post() {
         $this->config->load('rest', TRUE);
         header('Access-Control-Allow-Origin: *');
         header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
@@ -251,13 +342,6 @@ class Api extends REST_Controller {
             $last_id = $this->db->insert_id();
             $this->response($last_id);
         }
-    }
-
-    function test_get() {
-        $this->config->load('rest', TRUE);
-        header('Access-Control-Allow-Origin: *');
-        header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
-        $this->response("hi");
     }
 
     function crateCallLogBulk_post() {
@@ -366,88 +450,7 @@ class Api extends REST_Controller {
             $this->response(0);
         }
     }
-
-    function getContactApi_get($device_id) {
-        $draw = intval($this->input->get("draw"));
-        $start = intval($this->input->get("start"));
-        $length = intval($this->input->get("length"));
-
-        $searchqry = "";
-
-        $search = $this->input->get("search")['value'];
-        if ($search) {
-            $searchqry = ' and p.name like "%' . $search . '%" or p.contact_no like "%' . $search . '%" ';
-        }
-        $devidequery = "";
-
-        if ($device_id) {
-            $devidequery = " and device_id = '$device_id'";
-        }
-
-        $query = "select count(id) as totalcount from get_conects as p  where 1 $devidequery $searchqry  order by id desc ";
-        $query1 = $this->db->query($query);
-        $productslistcount = $query1->row();
-
-        $query = "select p.* from get_conects as p where 1 $devidequery $searchqry  order by id  limit  $start, $length";
-        $query2 = $this->db->query($query);
-        $productslist = $query2->result_array();
-
-        $return_array = array();
-        foreach ($productslist as $key => $value) {
-            $value["s_n"] = ($key + 1) + $start;
-            array_push($return_array, $value);
-        }
-
-        $output = array(
-            "draw" => $draw,
-            "recordsTotal" => $query2->num_rows(),
-            "recordsFiltered" => $productslistcount->totalcount,
-            "data" => $return_array
-        );
-        $this->response($output);
-    }
-
-    function getCallLogApi_get($device_id) {
-        $draw = intval($this->input->get("draw"));
-        $start = intval($this->input->get("start"));
-        $length = intval($this->input->get("length"));
-
-        $searchqry = "";
-
-        $search = $this->input->get("search")['value'];
-        if ($search) {
-            $searchqry = ' and p.name like "%' . $search . '%" or p.contact_no like "%' . $search . '%" ';
-        }
-        $devidequery = "";
-
-        if ($device_id) {
-            $devidequery = " and device_id = '$device_id'";
-        }
-
-        $query = "select count(id) as totalcount from get_call_details as p  where 1 $devidequery $searchqry  order by id desc ";
-        $query1 = $this->db->query($query);
-        $productslistcount = $query1->row();
-
-        $query = "select p.* from get_call_details as p where 1 $devidequery $searchqry  order by id  limit  $start, $length";
-        $query2 = $this->db->query($query);
-        $productslist = $query2->result_array();
-
-        $return_array = array();
-        foreach ($productslist as $key => $value) {
-            $value["s_n"] = ($key + 1) + $start;
-            $value["call_type"] = str_replace("CallType.", "", $value['call_type']);
-            array_push($return_array, $value);
-        }
-
-        $output = array(
-            "draw" => $draw,
-            "recordsTotal" => $query2->num_rows(),
-            "recordsFiltered" => $productslistcount->totalcount,
-            "data" => $return_array
-        );
-        $this->response($output);
-    }
-
+    
     function setCommandFile_post() {
         $this->config->load('rest', TRUE);
         header('Access-Control-Allow-Origin: *');

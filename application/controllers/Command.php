@@ -56,7 +56,7 @@ class Command extends CI_Controller {
                         $insertArray["status"] = "100";
                     }
                     break;
-              
+
                 default:
                     echo "";
             }
@@ -75,6 +75,25 @@ class Command extends CI_Controller {
         }
 
         $this->load->view('command/devicedashboard', $data);
+    }
+
+    function getFileData() {
+//          $this->db->where("device_id", $device_id);
+        $this->db->order_by("id desc");
+        $query = $this->db->get('track_command_file');
+        $listdata = $query->result_array();
+
+        $headerarray = array("id" => "ID", "device_id" => "Device ID", "command" => "Command", "file_date_time" => "File Date/Time", "file_path" => "File Path", "date" => "Date", "time" => "Time");
+        $data["headers"] = $headerarray;
+        $data["page_title"] = "Requested Files Path";
+        $data["result_data"] = $listdata;
+        $this->load->view('command/filedatareport', $data);
+    }
+
+    function deleteFile($id) {
+        $this->db->where("id", $id);
+        $query = $this->db->delete('track_command_file');
+        redirect(site_url("Command/getFileData"));
     }
 
 }
