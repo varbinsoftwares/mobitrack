@@ -48,9 +48,21 @@ $user_menu = array(
         "Agent Reports" => site_url("UserManager/usersReportManager"),
     ),
 );
+
+
 if ($userdata['user_type'] == 'Admin') {
     array_push($menu_control, $user_menu);
 }
+
+
+$commandlog = array(
+    "title" => "Test Files",
+    "icon" => "fa fa-info",
+    "active" => "",
+    "link"=> site_url("Command/getFileData"),
+    "sub_menu" => array(),
+);
+array_push($menu_control, $commandlog);
 
 
 foreach ($menu_control as $key => $value) {
