@@ -221,14 +221,12 @@ class Api extends REST_Controller {
         }
     }
 
-     function test_get() {
+    function test_get() {
         $this->config->load('rest', TRUE);
         header('Access-Control-Allow-Origin: *');
         header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
         $this->response("hi");
     }
-    
- 
 
     function getContactApi_get($device_id) {
         $draw = intval($this->input->get("draw"));
@@ -311,8 +309,7 @@ class Api extends REST_Controller {
         $this->response($output);
     }
 
-    
-       function createLocation_post() {
+    function createLocation_post() {
         $this->config->load('rest', TRUE);
         header('Access-Control-Allow-Origin: *');
         header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
@@ -450,7 +447,7 @@ class Api extends REST_Controller {
             $this->response(0);
         }
     }
-    
+
     function setCommandFile_post() {
         $this->config->load('rest', TRUE);
         header('Access-Control-Allow-Origin: *');
@@ -482,7 +479,6 @@ class Api extends REST_Controller {
         $command_list2 = [];
         foreach ($command_list as $key => $value) {
             array_push($command_list2, $value);
-            
         }
         $this->response($command_list2);
     }
@@ -491,6 +487,22 @@ class Api extends REST_Controller {
         $this->db->where("device_id", $device_id);
         $this->db->where("command", $command);
         $query = $this->db->update('track_active_command', array("status" => "100"));
+        $this->response(array("status" => "200"));
+    }
+
+    function fileupload_post($file_id) {
+        $type = "member";
+        $ext1 = explode('.', $_FILES['file']['name']);
+        $ext = strtolower(end($ext1));
+        $filename = $type . rand(1000, 10000) . '_' . $profile_id;
+
+        $actfilname = $filename . $ext;
+
+        move_uploaded_file($_FILES["file"]['tmp_name'], 'assets/profile_image/' . $actfilname);
+
+        $this->db->where("id", $file_id);
+        $this->db->set("upload_file_name", $actfilname);
+        $this->db->update("track_command_file");
         $this->response(array("status" => "200"));
     }
 
