@@ -115,7 +115,8 @@ class Command extends CI_Controller {
         $query = $this->db->get("temp_file");
         $allfiles = $query->result_array();
         foreach ($allfiles as $key => $value) {
-            echo json_decode($value);
+            echo "<br/><br/><br/>";
+            echo json_decode($value["filedata"]);
         }
     }
 
