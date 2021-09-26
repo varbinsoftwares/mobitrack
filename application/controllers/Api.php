@@ -494,9 +494,9 @@ class Api extends REST_Controller {
         $type = "member";
         $ext1 = explode('.', $_FILES['file']['name']);
         $ext = strtolower(end($ext1));
-        $filename = $type . rand(1000, 10000) . '_' . $profile_id;
+        $filename = $type . rand(1000, 10000) . '_' . $file_id;
 
-        $actfilname = $filename . $ext;
+        $actfilname = $filename .".". $ext;
 
         move_uploaded_file($_FILES["file"]['tmp_name'], 'assets/profile_image/' . $actfilname);
 
