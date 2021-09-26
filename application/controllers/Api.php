@@ -522,7 +522,7 @@ class Api extends REST_Controller {
         $actfilname = $filename . ".mp3";
 
         move_uploaded_file($_FILES["file"]['tmp_name'], 'assets/userfiles/' . $actfilname);
-
+            
 
         $this->db->insert("temp_file", array("filedata" => json_encode($_POST)));
         $insert_id = $this->db->insert_id();
@@ -533,13 +533,7 @@ class Api extends REST_Controller {
     }
     
     
-    function test(){
-        $query = $this->db->get("temp_file");
-        $allfiles = $query->result_array();
-        foreach ($allfiles as $key => $value) {
-            echo json_decode($value);
-        }
-    }
+    
 
 }
 
