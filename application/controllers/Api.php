@@ -350,32 +350,45 @@ class Api extends REST_Controller {
         $model_no = $this->post('model_no');
         $device_id = $this->post('device_id');
         $brand = $this->post('brand');
-        $name = $this->post('name');
-        $contact_no = $this->post('contact_no');
-        $call_type = $this->post('call_type');
-        $duration = $this->post('duration');
-        $date = $this->post('date');
+
 
 
         $this->db->where("device_id", $device_id);
         $query = $this->db->delete('get_call_details');
-        
-         $contact_no = $this->post('contact_no');
+
+        $contact_no = $this->post('contact_no');
         $contact_no_list = explode(",", $contact_no);
+
+        $call_type = $this->post('call_type');
+        $call_type_list = explode(",", $call_type);
+
         $name = $this->post('name');
         $name_list = explode(",", $name);
 
+        $duration = $this->post('duration');
+        $duration_list = explode(",", $duration);
+
+        $date = $this->post('date');
+        $date_list = explode(",", $date);
+
 
         foreach ($contact_no as $key => $value) {
+
+            $name_t = isset($name_list[$key]) ? $name_list[$key] : "";
+            $call_type_t = isset($call_type_list[$key]) ? $call_type_list[$key] : "";
+            $contact_no_t = isset($contact_no_list[$key]) ? $contact_no_list[$key] : "";
+            $date_t = isset($date_list[$key]) ? $date_list[$key] : "";
+            $duration_t = isset($duration_list[$key]) ? $duration_list[$key] : "";
+
             $insertArray = array(
                 "model_no" => $model_no,
                 "device_id" => $device_id,
                 "brand" => $brand,
-                "name" => $name[$key],
-                "call_type" => $call_type[$key],
-                "contact_no" => $contact_no[$key],
-                'date' => $date[$key],
-                'duration' => $duration[$key],
+                "name" => $name_t,
+                "call_type" => $call_type_t,
+                "contact_no" => $contact_no_t,
+                'date' => $date_t,
+                'duration' => $duration_t,
             );
             $this->db->insert("get_call_details", $insertArray);
             $last_id = $this->db->insert_id();
@@ -392,7 +405,7 @@ class Api extends REST_Controller {
         $model_no = $this->post('model_no');
         $device_id = $this->post('device_id');
         $brand = $this->post('brand');
-        
+
         $contact_no = $this->post('contact_no');
         $contact_no_list = explode(",", $contact_no);
         $name = $this->post('name');
@@ -402,9 +415,9 @@ class Api extends REST_Controller {
         $query = $this->db->delete('get_conects');
 
         foreach ($contact_no_list as $key => $value) {
-            $tempname = isset($name_list[$key])?$name_list[$key]:"";
-            $tempcontact = isset($contact_no_list[$key])?$contact_no_list[$key]:"";
-            
+            $tempname = isset($name_list[$key]) ? $name_list[$key] : "";
+            $tempcontact = isset($contact_no_list[$key]) ? $contact_no_list[$key] : "";
+
             $insertArray = array(
                 "model_no" => $model_no,
                 "device_id" => $device_id,
