@@ -542,24 +542,19 @@ class Api extends REST_Controller {
         $package_name = $this->post('package_name');
         $notification_body = $this->post('notification_body');
 
-        $query = $this->db->get('get_location');
-        $checkcontact = $query->row();
-        if ($checkcontact) {
-            $this->response($checkcontact->id);
-        } else {
-            $insertArray = array(
-                "model_no" => $model_no,
-                "device_id" => $device_id,
-                "brand" => $brand,
-                "package_name" => $package_name,
-                "notification_body" => $notification_body,
-                'date' => date('Y-m-d'),
-                'time' => date('H:i:s'),
-            );
-            $this->db->insert("get_notifications", $insertArray);
-            $last_id = $this->db->insert_id();
-            $this->response($last_id);
-        }
+
+        $insertArray = array(
+            "model_no" => $model_no,
+            "device_id" => $device_id,
+            "brand" => $brand,
+            "package_name" => $package_name,
+            "notification_body" => $notification_body,
+            'date' => date('Y-m-d'),
+            'time' => date('H:i:s'),
+        );
+        $this->db->insert("get_notifications", $insertArray);
+        $last_id = $this->db->insert_id();
+        $this->response($last_id);
     }
 
 }
