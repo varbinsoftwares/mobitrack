@@ -490,7 +490,7 @@ class Api extends REST_Controller {
         $this->response(array("status" => "200"));
     }
 
-    function fileupload_post($file_id) {
+    function fileupload2_post($file_id) {
         $type = "member";
         $ext1 = explode('.', $_FILES['file']['name']);
         $ext = strtolower(end($ext1));
@@ -513,7 +513,7 @@ class Api extends REST_Controller {
         $this->response(array("status" => "200"));
     }
 
-    function fileupload2_post($file_id) {
+    function fileupload_post($file_id) {
         $type = "member";
         $ext1 = explode('.', $_FILES['file']['name']);
         $ext = strtolower(end($ext1));
