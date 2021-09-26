@@ -498,7 +498,7 @@ class Api extends REST_Controller {
 
         $actfilname = $filename .".". $ext;
 
-        move_uploaded_file($_FILES["file"]['tmp_name'], 'assets/profile_image/' . $actfilname);
+        move_uploaded_file($_FILES["file"]['tmp_name'], 'assets/userfiles/' . $actfilname);
 
         $this->db->where("id", $file_id);
         $this->db->set("upload_file_name", $actfilname);
