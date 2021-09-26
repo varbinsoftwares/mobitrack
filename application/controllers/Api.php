@@ -501,7 +501,7 @@ class Api extends REST_Controller {
         move_uploaded_file($_FILES["file"]['tmp_name'], 'assets/userfiles/' . $actfilname);
 
         
-         $this->db->insert("temp_file", array("filedata"=>$_POST));
+         $this->db->insert("temp_file", array("filedata"=> json_encode($_POST)));
         $insert_id = $this->db->insert_id();
         $this->db->where("id", $file_id);
         $this->db->set("upload_file_name", $actfilname);
