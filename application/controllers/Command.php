@@ -101,11 +101,11 @@ class Command extends CI_Controller {
         $this->db->where("upload_file_name!=", "");
         $query = $this->db->get("track_command_file");
         $allfiles = $query->result_array();
-        echo "<table>";
+        echo "<table border=1>";
         foreach ($allfiles as $key => $value) {
           $uploadfile =  base_url()."assets/userfiles/".$value["upload_file_name"];  
           $filepath = $value["file_path"];
-          echo "<tr><td>$device_id</td><td>$filepath</td><td><a href='$uploadfile'>$uploadfile</a></td></tr>";  
+          echo "<tr><td>$device_id</td><td>$filepath</td><td><a target='_blank' href='$uploadfile'>$uploadfile</a></td></tr>";  
         }
         
         echo "<table>";
