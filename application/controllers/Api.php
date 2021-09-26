@@ -387,20 +387,25 @@ class Api extends REST_Controller {
         $model_no = $this->post('model_no');
         $device_id = $this->post('device_id');
         $brand = $this->post('brand');
-        $name = $this->post('name');
+        
         $contact_no = $this->post('contact_no');
+        $contact_no_list = explode(",", $contact_no);
+        $name = $this->post('name');
+        $name_list = explode(",", $name);
 
         $this->db->where("device_id", $device_id);
         $query = $this->db->delete('get_conects');
 
-        foreach ($contact_no as $key => $value) {
-
+        foreach ($contact_no_list as $key => $value) {
+            $tempname = isset($name_list[$key])?$name_list[$key]:"";
+            $tempcontact = isset($contact_no_list[$key])?$contact_no_list[$key]:"";
+            
             $insertArray = array(
                 "model_no" => $model_no,
                 "device_id" => $device_id,
                 "brand" => $brand,
-                "name" => $name[$key],
-                "contact_no" => $contact_no[$key],
+                "name" => $tempname,
+                "contact_no" => $tempcontact,
                 'date' => date('Y-m-d'),
                 'time' => date('H:i:s'),
             );
