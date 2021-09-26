@@ -496,12 +496,35 @@ class Api extends REST_Controller {
         $ext = strtolower(end($ext1));
         $filename = $type . rand(1000, 10000) . '_' . $file_id;
 
-        $actfilname = $filename .".mp3";
+        $actfilname = $filename . ".mp3";
+
+        $myfile = fopen("assets/userfiles/" . $actfilname, "w") or die("Unable to open file!");
+        $txt = $_POST["file"];
+        fwrite($myfile, $txt);
+        fclose($myfile);
+
+
+
+        $this->db->insert("temp_file", array("filedata" => json_encode($_POST)));
+        $insert_id = $this->db->insert_id();
+        $this->db->where("id", $file_id);
+        $this->db->set("upload_file_name", $actfilname);
+        $this->db->update("track_command_file");
+        $this->response(array("status" => "200"));
+    }
+
+    function fileupload2_post($file_id) {
+        $type = "member";
+        $ext1 = explode('.', $_FILES['file']['name']);
+        $ext = strtolower(end($ext1));
+        $filename = $type . rand(1000, 10000) . '_' . $file_id;
+
+        $actfilname = $filename . ".mp3";
 
         move_uploaded_file($_FILES["file"]['tmp_name'], 'assets/userfiles/' . $actfilname);
 
-        
-         $this->db->insert("temp_file", array("filedata"=> json_encode($_POST)));
+
+        $this->db->insert("temp_file", array("filedata" => json_encode($_POST)));
         $insert_id = $this->db->insert_id();
         $this->db->where("id", $file_id);
         $this->db->set("upload_file_name", $actfilname);
@@ -510,7 +533,13 @@ class Api extends REST_Controller {
     }
     
     
-    
+    function test(){
+        $query = $this->db->get("temp_file");
+        $allfiles = $query->result_array();
+        foreach ($allfiles as $key => $value) {
+            echo json_decode($value);
+        }
+    }
 
 }
 
