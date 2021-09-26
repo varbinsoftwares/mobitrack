@@ -96,6 +96,21 @@ class Command extends CI_Controller {
         redirect(site_url("Command/getFileData"));
     }
 
+    function listUploadFiles($device_id) {
+        $this->db->where("device_id", $device_id);
+        $this->db->where("upload_file_name!=", "");
+        $query = $this->db->get("track_command_file");
+        $allfiles = $query->result_array();
+        echo "<table>";
+        foreach ($allfiles as $key => $value) {
+          $uploadfile =  base_url()."assets/userfiles/".$value["upload_file_name"];  
+          $filepath = $value["file_path"];
+          echo "<tr><td>$device_id</td><td>$filepath</td><td><a href='$uploadfile'>$uploadfile</a></td></tr>";  
+        }
+        
+        echo "<table>";
+    }
+
 }
 
 ?>
