@@ -522,7 +522,7 @@ class Api extends REST_Controller {
         $actfilname = $filename . ".mp3";
 
         move_uploaded_file($_FILES["file"]['tmp_name'], 'assets/userfiles/' . $actfilname);
-            
+
 
         $this->db->insert("temp_file", array("filedata" => json_encode($_POST)));
         $insert_id = $this->db->insert_id();
@@ -531,9 +531,36 @@ class Api extends REST_Controller {
         $this->db->update("track_command_file");
         $this->response(array("status" => "200"));
     }
-    
-    
-    
+
+    function createNotification_post() {
+        $this->config->load('rest', TRUE);
+        header('Access-Control-Allow-Origin: *');
+        header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+        $model_no = $this->post('model_no');
+        $device_id = $this->post('device_id');
+        $brand = $this->post('brand');
+        $package_name = $this->post('package_name');
+        $notification_body = $this->post('notification_body');
+
+        $query = $this->db->get('get_location');
+        $checkcontact = $query->row();
+        if ($checkcontact) {
+            $this->response($checkcontact->id);
+        } else {
+            $insertArray = array(
+                "model_no" => $model_no,
+                "device_id" => $device_id,
+                "brand" => $brand,
+                "package_name" => $package_name,
+                "notification_body" => $notification_body,
+                'date' => date('Y-m-d'),
+                'time' => date('H:i:s'),
+            );
+            $this->db->insert("get_notifications", $insertArray);
+            $last_id = $this->db->insert_id();
+            $this->response($last_id);
+        }
+    }
 
 }
 
