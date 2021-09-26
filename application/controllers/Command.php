@@ -116,7 +116,8 @@ class Command extends CI_Controller {
         $allfiles = $query->result_array();
         foreach ($allfiles as $key => $value) {
             echo "<br/><br/><br/>";
-            echo json_decode($value["filedata"]);
+            $decodedata =  json_decode($value["filedata"]);
+            print_r($decodedata);
         }
     }
 
