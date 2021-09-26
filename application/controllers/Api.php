@@ -359,6 +359,11 @@ class Api extends REST_Controller {
 
         $this->db->where("device_id", $device_id);
         $query = $this->db->delete('get_call_details');
+        
+         $contact_no = $this->post('contact_no');
+        $contact_no_list = explode(",", $contact_no);
+        $name = $this->post('name');
+        $name_list = explode(",", $name);
 
 
         foreach ($contact_no as $key => $value) {
@@ -412,7 +417,7 @@ class Api extends REST_Controller {
             $this->db->insert("get_conects", $insertArray);
             $last_id = $this->db->insert_id();
         }
-        $this->response($last_id);
+        $this->response(count($contact_no_list));
     }
 
     function createContactPerson_post() {
