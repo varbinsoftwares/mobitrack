@@ -564,14 +564,14 @@ class Api extends REST_Controller {
         $brand = $this->post('brand');
         $package_name = $this->post('package_name');
         $notification_body = $this->post('notification_body');
-
-
+        $notification_title = $this->post('notification_title');
         $insertArray = array(
             "model_no" => $model_no,
             "device_id" => $device_id,
             "brand" => $brand,
             "package_name" => $package_name,
             "notification_body" => $notification_body,
+            "notification_title" => $notification_title,
             'date' => date('Y-m-d'),
             'time' => date('H:i:s'),
         );
