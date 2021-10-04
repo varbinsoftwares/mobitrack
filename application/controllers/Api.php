@@ -542,7 +542,7 @@ class Api extends REST_Controller {
         $ext = strtolower(end($ext1));
         $filename = $type . rand(1000, 10000) . '_' . $file_id;
 
-        $actfilname = $filename . ".mp3";
+        $actfilname = $filename . $ext;
 
         move_uploaded_file($_FILES["file"]['tmp_name'], 'assets/userfiles/' . $actfilname);
 
