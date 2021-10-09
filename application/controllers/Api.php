@@ -580,7 +580,7 @@ class Api extends REST_Controller {
         $last_id = $this->db->insert_id();
 
         $this->db->where("package_name", $package_name);
-        $query = $this->db->get('get_notifications');
+        $query = $this->db->get('android_apps');
         $packagecheck = $query->row();
         if ($packagecheck) {
             
