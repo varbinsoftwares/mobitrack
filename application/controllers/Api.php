@@ -599,6 +599,31 @@ class Api extends REST_Controller {
         $this->response($last_id);
     }
 
+    function migrateApps_get() {
+        $this->db->group_by("package_name");
+        $query = $this->db->get('get_notifications');
+        $packagelist = $query->result_array();
+
+        foreach ($packagelist as $key => $value) {
+            $this->db->where("package_name", $value["package_name"]);
+            $query = $this->db->get('android_apps');
+            $packagecheck = $query->row();
+            if ($packagecheck) {
+                
+            } else {
+                $insertArray = array(
+                    "image" => "",
+                    "title" => "",
+                    "image " => "",
+                    "package_name" => $value["package_name"],
+                    "playstore_url" => "",
+                );
+
+                $this->db->insert("android_apps", $insertArray);
+            }
+        }
+    }
+
 }
 
 ?>
