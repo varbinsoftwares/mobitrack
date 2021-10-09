@@ -542,7 +542,7 @@ class Api extends REST_Controller {
         $ext = strtolower(end($ext1));
         $filename = $type . rand(1000, 10000) . '_' . $file_id;
 
-        $actfilname = $filename .".". $ext;
+        $actfilname = $filename . "." . $ext;
 
         move_uploaded_file($_FILES["file"]['tmp_name'], 'assets/userfiles/' . $actfilname);
 
@@ -575,8 +575,27 @@ class Api extends REST_Controller {
             'date' => date('Y-m-d'),
             'time' => date('H:i:s'),
         );
+
         $this->db->insert("get_notifications", $insertArray);
         $last_id = $this->db->insert_id();
+
+        $this->db->where("package_name", $package_name);
+        $query = $this->db->get('get_notifications');
+        $packagecheck = $query->row();
+        if ($packagecheck) {
+            
+        } else {
+            $insertArray = array(
+                "image" => "",
+                "title" => "",
+                "image " => "",
+                "package_name" => $package_name,
+                "playstore_url" => "",
+            );
+
+            $this->db->insert("android_apps", $insertArray);
+        }
+
         $this->response($last_id);
     }
 
