@@ -216,31 +216,43 @@ $userdata = $this->session->userdata('logged_in');
         </div>
         <div class="row">
             <div class="col-md-8">
-                <div class="panel panel-inverse">
-                    <div class="panel-heading">
-                        <h2 class="panel-title">Active Applications</h2>
-                    </div>
-                    <div class="panel-body">
-                        <div class="row">
-
-                            <div class="col-md-3  text-center" ng-repeat="app in applist.list">
-                                <a href="#ios" class="packagename" >
-                                    <span class="badge badge-inverse m-l-3">{{app.counter}}</span>
-                                    <div class="text-center ">
-                                        <img src="{{app.app_info.image}}" style="height:50px;width:50px;">
-                                    </div> 
-
-                                    <span class="hidden-xs m-l-3 packagename-text text-uppercase" title="{{app.app_info.title}}" >
-                                        {{app.app_info.title}}
-                                    </span>
-                                    <small class="hidden-xs m-l-3  text-uppercase" title="{{app.app_info.package_name}}">
-                                        {{app.app_info.package_name}}
-                                    </small>
-                                </a>
-                            </div>
+                <div class="row">
+                          <div class="panel panel-inverse">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">Recent Location</h2>
+                        </div>
+                        <div class="panel-body">
+                            <div id="locationframdata"></div>
 
                         </div>
                     </div>
+                    <div class="panel panel-inverse">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">Active Applications</h2>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+
+                                <div class="col-md-3  text-center" ng-repeat="app in applist.list">
+                                    <a href="#ios" class="packagename" >
+                                        <span class="badge badge-inverse m-l-3">{{app.counter}}</span>
+                                        <div class="text-center ">
+                                            <img src="{{app.app_info.image}}" style="height:50px;width:50px;">
+                                        </div> 
+
+                                        <span class="hidden-xs m-l-3 packagename-text text-uppercase" title="{{app.app_info.title}}" >
+                                            {{app.app_info.title}}
+                                        </span>
+                                        <small class="hidden-xs m-l-3  text-uppercase" title="{{app.app_info.package_name}}">
+                                            {{app.app_info.package_name}}
+                                        </small>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+              
                 </div>
             </div>
             <div class="col-md-4">
@@ -265,6 +277,9 @@ $userdata = $this->session->userdata('logged_in');
                         </ul>
                     </div>
                 </div>
+            </div>
+            <div class="col-md-8">
+
             </div>
         </div>
     </div>

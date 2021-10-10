@@ -634,6 +634,18 @@ class Api extends REST_Controller {
         $this->response($notificationlist);
     }
 
+    function recentLocation_get($device_id) {
+        $this->db->where("device_id", $device_id);
+        $this->db->order_by("id desc");
+        $querynty = $this->db->get("get_location");
+        $locationdata = $querynty->row_array();
+        $locationarray = array("latitude" => 0.0, "longitude" => 0.0);
+        if ($locationdata) {
+            $locationarray = array("latitude" => $locationdata["latitude"], "longitude" => $locationdata["longitude"]);
+        }
+        $this->response($locationarray);
+    }
+
 }
 
 ?>
