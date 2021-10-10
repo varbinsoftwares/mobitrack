@@ -89,4 +89,20 @@ class Command_model extends CI_Model {
         return $applist;
     }
 
+    function recentNotifications($device_id = 0) {
+
+        $this->db->where("device_id", $device_id);
+        $this->db->limit(10, 0);
+        $this->db->order_by("id desc");
+        $querynty = $this->db->get("get_notifications");
+        $notificationdata = $querynty->result_array();
+        $applist = [];
+        foreach ($notificationdata as $key => $value) {
+            $value["counter"] = $this->unseenAppNotification($value["package_name"], $device_id);
+            $value["app_info"] = $this->appTitle($value["package_name"]);
+            array_push($applist, $value);
+        }
+        return $applist;
+    }
+
 }

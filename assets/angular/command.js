@@ -6,11 +6,14 @@ Admin.controller('commandControlDashboard', function ($scope, $http, $timeout, $
         $scope.selectCommand.title = title;
     }
 
-    $scope.applist = {"list": []};
+    $scope.applist = {"list": [], "notifications":[]};
 
     $scope.appnotification = function () {
         $http.get(rootBaseUrl + "Api/getAppsList/" + device_id).then(function (result) {
             $scope.applist.list = result.data;
+        }, function () {});
+        $http.get(rootBaseUrl + "Api/recentNotifications/" + device_id).then(function (result) {
+            $scope.applist.notifications = result.data;
         }, function () {});
     }
     $scope.appnotification();

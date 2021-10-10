@@ -623,10 +623,15 @@ class Api extends REST_Controller {
             }
         }
     }
-    
-    function getAppsList_get($device_id){
+
+    function getAppsList_get($device_id) {
         $notificationcount = $this->Command_model->appNotificationList($device_id);
         $this->response($notificationcount);
+    }
+
+    function recentNotifications_get($device_id) {
+        $notificationlist = $this->Command_model->recentNotifications($device_id);
+        $this->response($notificationlist);
     }
 
 }

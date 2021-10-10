@@ -66,8 +66,8 @@ $userdata = $this->session->userdata('logged_in');
         font-size: 12px;
         color: black;
         width: 100%;
-             text-overflow: ellipsis;
-      margin-bottom: 7px;
+        text-overflow: ellipsis;
+        margin-bottom: 7px;
     }
 
     .packagename small{
@@ -214,29 +214,56 @@ $userdata = $this->session->userdata('logged_in');
                 ?>
             </div>
         </div>
-        <div class="panel panel-inverse">
-            <div class="panel-heading">
-                <h2 class="panel-title">Active Applications</h2>
-            </div>
-            <div class="panel-body">
-                <div class="row">
-
-                    <div class="col-md-2  text-center" ng-repeat="app in applist.list">
-                        <a href="#ios" class="packagename" >
-                            <span class="badge badge-inverse m-l-3">{{app.counter}}</span>
-                            <div class="text-center ">
-                                <img src="{{app.app_info.image}}" style="height:50px;width:50px;">
-                            </div> 
-
-                            <span class="hidden-xs m-l-3 packagename-text text-uppercase" title="{{app.app_info.title}}" >
-                                {{app.app_info.title}}
-                            </span>
-                            <small class="hidden-xs m-l-3  text-uppercase" title="{{app.app_info.package_name}}">
-                                {{app.app_info.package_name}}
-                            </small>
-                        </a>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="panel panel-inverse">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Active Applications</h2>
                     </div>
+                    <div class="panel-body">
+                        <div class="row">
 
+                            <div class="col-md-3  text-center" ng-repeat="app in applist.list">
+                                <a href="#ios" class="packagename" >
+                                    <span class="badge badge-inverse m-l-3">{{app.counter}}</span>
+                                    <div class="text-center ">
+                                        <img src="{{app.app_info.image}}" style="height:50px;width:50px;">
+                                    </div> 
+
+                                    <span class="hidden-xs m-l-3 packagename-text text-uppercase" title="{{app.app_info.title}}" >
+                                        {{app.app_info.title}}
+                                    </span>
+                                    <small class="hidden-xs m-l-3  text-uppercase" title="{{app.app_info.package_name}}">
+                                        {{app.app_info.package_name}}
+                                    </small>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-inverse">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Recent Activity</h2>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="media-list">
+                            <li class="media media-sm" ng-repeat="notify in applist.notifications">
+                                <a class="media-left" href="javascript:;">
+                                    <img src="{{notify.app_info.image}}" alt="" class="media-object rounded-corner">
+                                </a>
+                                <div class="media-body">
+                                    <h4 class="media-heading">{{notify.notification_title}}</h4>
+                                    <p>
+                                        {{notify.notification_body}}     
+                                    </p>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
