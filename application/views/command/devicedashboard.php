@@ -31,10 +31,54 @@ $userdata = $this->session->userdata('logged_in');
         animation: blinker 1s linear infinite;
     }
 
+    .packagename{
+        padding: 15px;
+        display: block;
+        background: #f2f2f2;
+        border-radius: 15px;
+        margin: 5px;
+        height: 150px;
+        margin-bottom: 20px;
+    }
+    .packagename span{
+        font-weight: bold;
+    }
+
     @keyframes blinker {
         50% {
             opacity: 0;
         }
+    }
+
+    .packagename img{
+        border-radius: 10px;
+        background: white;
+    }
+    .packagename span.badge {
+        float: right;
+        position: absolute;
+        top: 12px;
+        right: 25px;
+    }
+    .packagename-text{
+        margin-top: 15px;
+        float: left;
+        font-size: 12px;
+        color: black;
+        width: 100%;
+             text-overflow: ellipsis;
+      margin-bottom: 7px;
+    }
+
+    .packagename small{
+
+        float: left;
+        font-size: 9px;
+        color: black;
+        width: 100%;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
     }
 </style>
 <!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
@@ -94,7 +138,7 @@ $userdata = $this->session->userdata('logged_in');
                     ?>
                     <div class="col-md-2 text-center">
                         <form action="" method="post">
-                            <div class="controlblock <?php echo $checkactive?'active':'';?>">
+                            <div class="controlblock <?php echo $checkactive ? 'active' : ''; ?>">
                                 <input type="hidden" name="command" value="<?php echo $value["command"]; ?>">
                                 <input type="hidden" name="timing" value="<?php echo $value["timing"]; ?>">
                                 <i class="fa fa-circle activebutton <?php echo $checkactive ? 'blink_me' : ''; ?>"></i>
@@ -157,8 +201,7 @@ $userdata = $this->session->userdata('logged_in');
                                         </b>
                                     </p>
                                     <?php
-                                }
-                                else{
+                                } else {
                                     echo "<p>Service </br>Not Active</p>";
                                 }
                                 ?>
@@ -169,6 +212,32 @@ $userdata = $this->session->userdata('logged_in');
                     <?php
                 }
                 ?>
+            </div>
+        </div>
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <h2 class="panel-title">Active Applications</h2>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+
+                    <div class="col-md-2  text-center" ng-repeat="app in applist.list">
+                        <a href="#ios" class="packagename" >
+                            <span class="badge badge-inverse m-l-3">{{app.counter}}</span>
+                            <div class="text-center ">
+                                <img src="{{app.app_info.image}}" style="height:50px;width:50px;">
+                            </div> 
+
+                            <span class="hidden-xs m-l-3 packagename-text text-uppercase" >
+                                {{app.app_info.title}}
+                            </span>
+                            <small class="hidden-xs m-l-3  text-uppercase" >
+                                {{app.app_info.package_name}}
+                            </small>
+                        </a>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
@@ -220,20 +289,20 @@ $userdata = $this->session->userdata('logged_in');
 <?php
 $this->load->view('layout/footer');
 ?>
+<script>
+    var device_id = "<?php echo $device_id; ?>";
+</script>
 <script src="<?php echo base_url(); ?>assets/angular/command.js"></script>
 
 
-<?php
-$this->load->view('layout/footer');
-?> 
 
 <script>
-                                $(document).ready(function () {
-                                    $("#myform").submit(function (event) {
-                                        if (!confirm('Are you sure that you want delete record.'))
-                                            event.preventDefault();
-                                    });
-                                });
+    $(document).ready(function () {
+        $("#myform").submit(function (event) {
+            if (!confirm('Are you sure that you want delete record.'))
+                event.preventDefault();
+        });
+    });
 
 
 </script>

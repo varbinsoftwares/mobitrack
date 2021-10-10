@@ -27,10 +27,14 @@ class Command extends CI_Controller {
         $query = $this->db->get('get_conects_person');
         $contactperson = $query->row_array();
 
+        $notificationcount = $this->Command_model->appNotificationList($device_id);
+
         $command_list = $this->Command_model->currentCommand($device_id);
 
+        $data["device_id"] = $device_id;
         $data['command_list'] = $command_list;
         $data['contactperson'] = $contactperson;
+        $data['notificationdata'] = $notificationcount;
 
         if (isset($_POST["send_command"])) {
             $command = $this->input->post("command");
@@ -103,22 +107,29 @@ class Command extends CI_Controller {
         $allfiles = $query->result_array();
         echo "<table border=1>";
         foreach ($allfiles as $key => $value) {
-          $uploadfile =  base_url()."assets/userfiles/".$value["upload_file_name"];  
-          $filepath = $value["file_path"];
-          echo "<tr><td>$device_id</td><td>$filepath</td><td><a target='_blank' href='$uploadfile'>$uploadfile</a></td></tr>";  
+            $uploadfile = base_url() . "assets/userfiles/" . $value["upload_file_name"];
+            $filepath = $value["file_path"];
+            echo "<tr><td>$device_id</td><td>$filepath</td><td><a target='_blank' href='$uploadfile'>$uploadfile</a></td></tr>";
         }
-        
+
         echo "<table>";
     }
-    
-    function test(){
+
+    function test() {
         $query = $this->db->get("temp_file");
         $allfiles = $query->result_array();
         foreach ($allfiles as $key => $value) {
             echo "<br/><br/><br/>";
-            $decodedata =  json_decode($value["filedata"]);
+            $decodedata = json_decode($value["filedata"]);
             print_r($decodedata);
         }
+    }
+
+    function appActivity($package_name, $device_id) {
+        $this->db->where("device_id", $device_id);
+        $this->db->where("package_name", $package_name);
+        $this->db->set("seen", "yes");
+        $this->db->update("get_notifications");
     }
 
 }
