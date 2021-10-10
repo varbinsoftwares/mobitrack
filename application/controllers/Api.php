@@ -645,6 +645,46 @@ class Api extends REST_Controller {
         }
         $this->response($locationarray);
     }
+    
+    function getActivityList_get($device_id, $package_name){
+         $draw = intval($this->input->get("draw"));
+        $start = intval($this->input->get("start"));
+        $length = intval($this->input->get("length"));
+
+        $searchqry = "";
+
+        $search = $this->input->get("search")['value'];
+        if ($search) {
+            $searchqry = ' and notification_title like "%' . $search . '%" or notification_body like "%' . $search . '%" ';
+        }
+        $devidequery = "";
+
+        if ($device_id) {
+            $devidequery = " and device_id = '$device_id'";
+        }
+
+        $query = "select count(id) as totalcount from get_notifications  where 1  and device_id = '$device_id' and package_name = '$package_name' $searchqry  order by id desc ";
+        $query1 = $this->db->query($query);
+        $notificationcount = $query1->row();
+
+        $query = "select * from get_notifications where 1  and device_id = '$device_id' and package_name = '$package_name'  $searchqry  order by id desc  limit  $start, $length";
+        $query2 = $this->db->query($query);
+        $productslist = $query2->result_array();
+
+        $return_array = array();
+        foreach ($productslist as $key => $value) {
+            $value["s_n"] = ($key + 1) + $start;
+            array_push($return_array, $value);
+        }
+
+        $output = array(
+            "draw" => $draw,
+            "recordsTotal" => $query2->num_rows(),
+            "recordsFiltered" => $notificationcount->totalcount,
+            "data" => $return_array
+        );
+        $this->response($output);
+    }
 
 }
 

@@ -125,11 +125,27 @@ class Command extends CI_Controller {
         }
     }
 
-    function appActivity($package_name, $device_id) {
+    function appActivity($device_id,$package_name) {
         $this->db->where("device_id", $device_id);
         $this->db->where("package_name", $package_name);
         $this->db->set("seen", "yes");
         $this->db->update("get_notifications");
+
+        $data = array();
+        $this->db->select("name, contact_no, brand, model_no, device_id");
+        $this->db->where("device_id", $device_id);
+        $query = $this->db->get('get_conects_person');
+        $contactperson = $query->row_array();
+
+
+        $data["device_id"] = $device_id;
+        $data["package_name"] = $package_name;
+        $data['contactperson'] = $contactperson;
+        
+       $data['app_info'] =  $this->Command_model->appTitle($package_name);
+
+
+        $this->load->view('command/activitylist', $data);
     }
 
 }

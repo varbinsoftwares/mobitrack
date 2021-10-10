@@ -91,51 +91,59 @@ $userdata = $this->session->userdata('logged_in');
     </ol>
     <!-- end breadcrumb -->
     <!-- begin page-header -->
-    <h1 class="page-header">
+
+    
+    <h1 class="">
         <?php
         if ($contactperson) {
-            echo $contactperson['name'] . ", " . $contactperson['contact_no'] . " - ";
-        }
-        if ($contactperson) {
-
-            echo "Brand: " . $contactperson['brand'] . "| Model No:" . $contactperson['model_no'] . " | " . $contactperson['device_id'];
+            echo $contactperson['name'] . ", " . $contactperson['contact_no'];
         }
         ?>
-    </h1>
-    <!-- end page-header -->
+        <br/>
+        <small class="page-header" style="font-size: 15px;color:black;">
+            <?php
+            if ($contactperson) {
 
+                echo "Brand: " . $contactperson['brand'] . "| Model No:" . $contactperson['model_no'] . " | " . $contactperson['device_id'];
+            }
+            ?>
+        </small>
+    </h1>
+
+    <!-- end page-header -->
+ 
     <div class="row">
 
         <div class="panel panel-default">
             <div class="panel-body">
 
-                <?php
-                $commandlist = [
-                    array("title" => "Sound Record", "command" => "sound_record",
-                        "modal" => 'data-toggle="modal" data-target="#opentimemodel"',
-                        "formtype" => ' name="send_command" value="sendCommand" type="button"',
-                        "timing" => "fixed_time", "icon" => "fa fa-headphones"),
-                    array("title" => "Get Contacts", "command" => "contact_list",
-                        "modal" => "",
-                        "formtype" => ' name="send_command" value="sendCommand" type="submit"',
-                        "timing" => "bool", "icon" => "fa fa-group"),
-                    array("title" => "Get Contacts Log", "command" => "contact_log",
-                        "modal" => "",
-                        "formtype" => ' name="send_command" value="sendCommand" type="submit"',
-                        "timing" => "bool", "icon" => "fa fa-phone"),
-                    array("title" => "Location Tracking", "command" => "live_location",
-                        "modal" => "",
-                        "formtype" => ' name="send_command" value="sendCommand" type="submit"',
-                        "timing" => "bool", "icon" => "fa fa-map-marker"),
-                ];
-                foreach ($commandlist as $key => $value) {
-                    $checkactive = false;
-                    $commandattr = array();
-                    if (isset($command_list[$value["command"]])) {
-                        $commandattr = $command_list[$value["command"]];
-                        $checkactive = $commandattr["status"] == "200";
-                    }
-                    ?>
+<?php
+$commandlist = [
+    array("title" => "Sound Record", "command" => "sound_record",
+        "modal" => 'data-toggle="modal" data-target="#opentimemodel"',
+        "formtype" => ' name="send_command" value="sendCommand" type="button"',
+        "timing" => "fixed_time", "icon" => "fa fa-headphones"),
+    array("title" => "Get Contacts", "command" => "contact_list",
+        "modal" => "",
+        "formtype" => ' name="send_command" value="sendCommand" type="submit"',
+        "timing" => "bool", "icon" => "fa fa-group"),
+    array("title" => "Get Contacts Log", "command" => "contact_log",
+        "modal" => "",
+        "formtype" => ' name="send_command" value="sendCommand" type="submit"',
+        "timing" => "bool", "icon" => "fa fa-phone"),
+    array("title" => "Location Tracking", "command" => "live_location",
+        "modal" => "",
+        "formtype" => ' name="send_command" value="sendCommand" type="submit"',
+        "timing" => "bool", "icon" => "fa fa-map-marker"),
+];
+foreach ($commandlist as $key => $value) {
+    $checkactive = false;
+    $commandattr = array();
+    if (isset($command_list[$value["command"]])) {
+        $commandattr = $command_list[$value["command"]];
+        $checkactive = $commandattr["status"] == "200";
+    }
+    ?>
                     <div class="col-md-2 text-center">
                         <form action="" method="post">
                             <div class="controlblock <?php echo $checkactive ? 'active' : ''; ?>">
@@ -144,12 +152,12 @@ $userdata = $this->session->userdata('logged_in');
                                 <i class="fa fa-circle activebutton <?php echo $checkactive ? 'blink_me' : ''; ?>"></i>
                                 <div class="iconblock "><i class="<?php echo $value["icon"]; ?> fa-2x"></i></div>
                                 <button <?php echo $value["modal"]; ?>
-                                <?php echo $value["formtype"]; ?>
+    <?php echo $value["formtype"]; ?>
                                     class="btn btn-success btn-block" ng-click="setCommand('<?php echo ($value["title"]); ?>', '<?php echo ($value["command"]); ?>')"> <?php echo $value["title"]; ?></button>
-                                    <?php
-                                    if ($value["timing"] == "bool") {
-                                        $onoff = array("on" => "On", "off" => "Off");
-                                        ?>
+                                <?php
+                                if ($value["timing"] == "bool") {
+                                    $onoff = array("on" => "On", "off" => "Off");
+                                    ?>
                                     <select class="form-control" name="attr">
                                         <?php
                                         foreach ($onoff as $key2 => $value2) {
@@ -161,24 +169,24 @@ $userdata = $this->session->userdata('logged_in');
                                             }
                                             ?>
                                                     ><?php echo $value2; ?></option>
-                                                <?php }
-                                                ?>
+                                        <?php }
+                                        ?>
                                     </select>
-                                    <?php
-                                } else {
-                                    $timingarray = array(
-                                        "10000" => "10 Minutes",
-                                        "15000" => "15 Minutes",
-                                        "20000" => "20 Minutes",
-                                        "30000" => "30 Minutes",
-                                        "40000" => "40 Minutes",
-                                        "60000" => "60 Minutes",
-                                    );
-                                    ?>
+                                                <?php
+                                            } else {
+                                                $timingarray = array(
+                                                    "10000" => "10 Minutes",
+                                                    "15000" => "15 Minutes",
+                                                    "20000" => "20 Minutes",
+                                                    "30000" => "30 Minutes",
+                                                    "40000" => "40 Minutes",
+                                                    "60000" => "60 Minutes",
+                                                );
+                                                ?>
                                     <select class="form-control" name="attr">
-                                        <?php
-                                        foreach ($timingarray as $key2 => $value2) {
-                                            ?>
+                                    <?php
+                                    foreach ($timingarray as $key2 => $value2) {
+                                        ?>
                                             <option value="<?php echo $key2; ?>"
                                             <?php
                                             if ($checkactive) {
@@ -186,38 +194,38 @@ $userdata = $this->session->userdata('logged_in');
                                             }
                                             ?>
                                                     ><?php echo $value2; ?></option>
-                                                <?php }
-                                                ?>
+                                        <?php }
+                                        ?>
                                     </select>
 
-                                    <?php
-                                }
-                                if ($checkactive) {
-                                    ?>
+        <?php
+    }
+    if ($checkactive) {
+        ?>
                                     <p>
                                         Started Date/Time<br/>
                                         <b>
-                                            <?php echo $commandattr["date"] . " " . $commandattr["time"] ?>
+        <?php echo $commandattr["date"] . " " . $commandattr["time"] ?>
                                         </b>
                                     </p>
-                                    <?php
-                                } else {
-                                    echo "<p>Service </br>Not Active</p>";
-                                }
-                                ?>
+        <?php
+    } else {
+        echo "<p>Service </br>Not Active</p>";
+    }
+    ?>
 
                             </div>
                         </form>
                     </div>
-                    <?php
-                }
-                ?>
+    <?php
+}
+?>
             </div>
         </div>
         <div class="row">
             <div class="col-md-8">
                 <div class="row">
-                          <div class="panel panel-inverse">
+                    <div class="panel panel-inverse">
                         <div class="panel-heading">
                             <h2 class="panel-title">Recent Location</h2>
                         </div>
@@ -234,7 +242,7 @@ $userdata = $this->session->userdata('logged_in');
                             <div class="row">
 
                                 <div class="col-md-3  text-center" ng-repeat="app in applist.list">
-                                    <a href="#ios" class="packagename" >
+                                    <a href="<?php echo site_url("Command/appActivity/$device_id/"); ?>{{app.app_info.package_name}}" class="packagename" >
                                         <span class="badge badge-inverse m-l-3">{{app.counter}}</span>
                                         <div class="text-center ">
                                             <img src="{{app.app_info.image}}" style="height:50px;width:50px;">
@@ -252,7 +260,7 @@ $userdata = $this->session->userdata('logged_in');
                             </div>
                         </div>
                     </div>
-              
+
                 </div>
             </div>
             <div class="col-md-4">
@@ -298,17 +306,17 @@ $userdata = $this->session->userdata('logged_in');
                             <input type="hidden" name="timing" value="fixed_time">
                             <label for="exampleInputEmail1">Set Timing</label>
                             <select class="form-control" name="attr">
-                                <?php
-                                $timingarray = array(
-                                    "10000" => "10 Minutes",
-                                    "15000" => "15 Minutes",
-                                    "20000" => "20 Minutes",
-                                    "30000" => "30 Minutes",
-                                    "40000" => "40 Minutes",
-                                    "60000" => "60 Minutes",
-                                );
-                                foreach ($timingarray as $key => $value) {
-                                    ?>
+<?php
+$timingarray = array(
+    "10000" => "10 Minutes",
+    "15000" => "15 Minutes",
+    "20000" => "20 Minutes",
+    "30000" => "30 Minutes",
+    "40000" => "40 Minutes",
+    "60000" => "60 Minutes",
+);
+foreach ($timingarray as $key => $value) {
+    ?>
                                     <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
                                 <?php }
                                 ?>
