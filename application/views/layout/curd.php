@@ -76,6 +76,12 @@ $this->load->view('layout/topmenu');
                                                         <span  id="<?php echo $fkey; ?>" data-type="select" data-pk="<?php echo $vdata['id']; ?>" data-name="<?php echo $fkey; ?>" data-value="<?php echo $vdata[$fkey]; ?>" data-params ={'tablename':'<?php echo $table_name; ?>'} data-url="<?php echo site_url("LocalApi/updateCurd"); ?>" data-mode="inline" class="m-l-5 editable editable-click <?php echo $fvalue['depends']; ?>" tabindex="-1" > <?php echo $depends[$fvalue['depends']][$vdata[$fkey]]; ?></span>
                                                         <?php
                                                         break;
+                                                     case "readonly":
+                                                        ?>
+
+                                                        <span> <?php echo $depends[$fvalue['depends']][$vdata[$fkey]]; ?></span>
+                                                        <?php
+                                                        break;
                                                     default:
                                                         ?>
                                                         <span  id="<?php echo $fkey; ?>" data-type="text" data-pk="<?php echo $vdata['id']; ?>" data-name="<?php echo $fkey; ?>" data-value="<?php echo $vdata[$fkey]; ?>" data-params ={'tablename':'<?php echo $table_name; ?>'} data-url="<?php echo site_url("LocalApi/updateCurd"); ?>" data-mode="inline" class="m-l-5 editable editable-click" tabindex="-1" > <?php echo $vdata[$fkey]; ?></span>

@@ -151,17 +151,17 @@ class Command extends CI_Controller {
 
     public function ApplicationSetting() {
         $data = array();
-        
-            $location_data = $this->Curd_model->get('android_apps');
+
+        $location_data = $this->Curd_model->get('android_apps');
         $location_select = array();
-       
+
 
         $dependes = array(
             "location_data" => $location_select,
         );
 
         $data['depends'] = $dependes;
-        
+
         $data['title'] = "Set Applications";
         $data['description'] = "";
         $data['form_title'] = "Add Apps";
@@ -188,9 +188,9 @@ class Command extends CI_Controller {
 
         $fields = array(
             "id" => array("title" => "ID#", "width" => "100px"),
-            "package_name" => array("title" => "Package Name", "width" => "20%", "type" => "textarea",),
-            "image" => array("title" => "Package Name", "width" => "20%", "type" => "textarea",),
-            "title" => array("title" => "Package Name", "width" => "20%", "type" => "textarea",),
+            "package_name" => array("title" => "Package Name", "width" => "20%", "type" => "readonly",),
+            "title" => array("title" => "App Title", "width" => "20%", "type" => "textarea",),
+            "image" => array("title" => "App Logo URL", "width" => "20%", "type" => "textarea",),
             "playstore_url" => array("title" => "Play Store URL", "width" => "20%", "type" => "textarea",),
         );
 
