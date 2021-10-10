@@ -43,7 +43,7 @@ $this->load->view('layout/topmenu');
                                 <?php
                             }
                             ?>
-                            <th></th>
+                     
                         </tr>
                     </thead>
                     <tbody>
@@ -67,38 +67,43 @@ $this->load->view('layout/topmenu');
                                                 switch ($fvalue['type']) {
                                                     case "textarea":
                                                         ?>
-                                                        <span  id="<?php echo $fkey; ?>" data-type="textarea" data-pk="<?php echo $vdata['id']; ?>" data-name="<?php echo $fkey; ?>" data-value="<?php echo $vdata[$fkey]; ?>" data-params ={'tablename':'<?php echo $table_name; ?>'} data-url="<?php echo site_url("LocalApi/updateCurd"); ?>" data-mode="inline" class="m-l-5 editable editable-click" tabindex="-1" > <?php echo $vdata[$fkey]; ?></span>
+                                                        <span  id="<?php echo $fkey; ?>" data-type="textarea" data-pk="<?php echo $vdata['id']; ?>" data-name="<?php echo $fkey; ?>" data-value="<?php echo $vdata[$fkey]; ?>" data-params ={'tablename':'<?php echo $table_name; ?>'} data-url="<?php echo site_url("Api/updateCurd"); ?>" data-mode="inline" class="m-l-5 editable editable-click" tabindex="-1" > <?php echo $vdata[$fkey]; ?></span>
                                                         <?php
                                                         break;
                                                     case "select":
                                                         ?>
 
-                                                        <span  id="<?php echo $fkey; ?>" data-type="select" data-pk="<?php echo $vdata['id']; ?>" data-name="<?php echo $fkey; ?>" data-value="<?php echo $vdata[$fkey]; ?>" data-params ={'tablename':'<?php echo $table_name; ?>'} data-url="<?php echo site_url("LocalApi/updateCurd"); ?>" data-mode="inline" class="m-l-5 editable editable-click <?php echo $fvalue['depends']; ?>" tabindex="-1" > <?php echo $depends[$fvalue['depends']][$vdata[$fkey]]; ?></span>
+                                                        <span  id="<?php echo $fkey; ?>" data-type="select" data-pk="<?php echo $vdata['id']; ?>" data-name="<?php echo $fkey; ?>" data-value="<?php echo $vdata[$fkey]; ?>" data-params ={'tablename':'<?php echo $table_name; ?>'} data-url="<?php echo site_url("Api/updateCurd"); ?>" data-mode="inline" class="m-l-5 editable editable-click <?php echo $fvalue['depends']; ?>" tabindex="-1" > <?php echo $depends[$fvalue['depends']][$vdata[$fkey]]; ?></span>
                                                         <?php
                                                         break;
-                                                     case "readonly":
+                                                    case "readonly":
                                                         ?>
 
-                                                        <span> <?php echo $depends[$fvalue['depends']][$vdata[$fkey]]; ?></span>
+                                                        <span> <?php echo $vdata[$fkey]; ?></span>
                                                         <?php
                                                         break;
+                                                    case "image":
+                                                        ?>
+
+                                                         <img src="<?php echo $vdata[$fkey]; ?>" style="height:50px;height:50px;"/>
+                                                    <?php
+                                                       break;
                                                     default:
                                                         ?>
-                                                        <span  id="<?php echo $fkey; ?>" data-type="text" data-pk="<?php echo $vdata['id']; ?>" data-name="<?php echo $fkey; ?>" data-value="<?php echo $vdata[$fkey]; ?>" data-params ={'tablename':'<?php echo $table_name; ?>'} data-url="<?php echo site_url("LocalApi/updateCurd"); ?>" data-mode="inline" class="m-l-5 editable editable-click" tabindex="-1" > <?php echo $vdata[$fkey]; ?></span>
+                                                        <span  id="<?php echo $fkey; ?>" data-type="text" data-pk="<?php echo $vdata['id']; ?>" data-name="<?php echo $fkey; ?>" data-value="<?php echo $vdata[$fkey]; ?>" data-params ={'tablename':'<?php echo $table_name; ?>'} data-url="<?php echo site_url("Api/updateCurd"); ?>" data-mode="inline" class="m-l-5 editable editable-click" tabindex="-1" > <?php echo $vdata[$fkey]; ?></span>
                                                     </td>
                                                 <?php
                                             }
                                         } else {
                                             ?>
-                                    <span  id="<?php echo $fkey; ?>" data-type="text" data-pk="<?php echo $vdata['id']; ?>" data-name="<?php echo $fkey; ?>" data-value="<?php echo $vdata[$fkey]; ?>" data-params ={'tablename':'<?php echo $table_name; ?>'} data-url="<?php echo site_url("LocalApi/updateCurd"); ?>" data-mode="inline" class="m-l-5 editable editable-click" tabindex="-1" > <?php echo $vdata[$fkey]; ?></span>
+                                    <span  id="<?php echo $fkey; ?>" data-type="text" data-pk="<?php echo $vdata['id']; ?>" data-name="<?php echo $fkey; ?>" data-value="<?php echo $vdata[$fkey]; ?>" data-params ={'tablename':'<?php echo $table_name; ?>'} data-url="<?php echo site_url("Api/updateCurd"); ?>" data-mode="inline" class="m-l-5 editable editable-click" tabindex="-1" > <?php echo $vdata[$fkey]; ?></span>
 
                                     <?php
                                 }
                             }
                         }
                         ?>
-                        <td>
-                        </td>
+                        
                         </tr>
                         <?php
                     }
@@ -224,7 +229,7 @@ if ($depends) {
         });
 
         $(".editable").editable();
-     $('#tableData').DataTable({'pageLength':10});
+        $('#tableData').DataTable({'pageLength': 10});
 
 
 <?php

@@ -183,13 +183,15 @@ class Command extends CI_Controller {
         }
 
 
-        $tag_data = $this->Curd_model->get('android_apps');
+        $this->db->select("id, image, title, package_name, playstore_url, image as imagesrc");
+        $tag_data = $this->db->get('android_apps')->result_array();
         $data['list_data'] = $tag_data;
 
         $fields = array(
             "id" => array("title" => "ID#", "width" => "100px"),
+            "imagesrc" => array("title" => "", "width" => "70px", "type" => "image",),
             "package_name" => array("title" => "Package Name", "width" => "20%", "type" => "readonly",),
-            "title" => array("title" => "App Title", "width" => "20%", "type" => "textarea",),
+            "title" => array("title" => "App Title", "width" => "100px", "type" => "textarea",),
             "image" => array("title" => "App Logo URL", "width" => "20%", "type" => "textarea",),
             "playstore_url" => array("title" => "Play Store URL", "width" => "20%", "type" => "textarea",),
         );

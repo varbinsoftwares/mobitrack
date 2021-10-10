@@ -623,6 +623,18 @@ class Api extends REST_Controller {
             }
         }
     }
+     function updateCurd_post() {
+        $fieldname = $this->post('name');
+        $value = $this->post('value');
+        $pk_id = $this->post('pk');
+        $tablename = $this->post('tablename');
+        if ($this->checklogin) {
+            $data = array($fieldname => $value);
+            $this->db->set($data);
+            $this->db->where("id", $pk_id);
+            $this->db->update($tablename, $data);
+        }
+    }
 
     function getAppsList_get($device_id) {
         $notificationcount = $this->Command_model->appNotificationList($device_id);
