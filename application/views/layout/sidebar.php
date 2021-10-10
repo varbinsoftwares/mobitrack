@@ -54,6 +54,19 @@ if ($userdata['user_type'] == 'Admin') {
     array_push($menu_control, $user_menu);
 }
 
+$user_menu = array(
+    "title" => "Settings ",
+    "icon" => "fa fa-wrench",
+    "active" => "",
+    "sub_menu" => array(
+        "App Settings" => site_url("Command/ApplicationSetting"),
+    ),
+);
+
+
+if ($userdata['user_type'] == 'Admin') {
+    array_push($menu_control, $user_menu);
+}
 
 $commandlog = array(
     "title" => "Test Files",

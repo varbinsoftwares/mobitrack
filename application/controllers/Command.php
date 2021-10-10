@@ -12,6 +12,7 @@ class Command extends CI_Controller {
         $this->db->select("password");
         $this->db->where("user_type", "admin");
         $query = $this->db->get('admin_users');
+        $this->curd = $this->load->model('Curd_model');
 
         $passwordq = $query->row();
         $this->gblpassword = $passwordq->password;
@@ -125,7 +126,7 @@ class Command extends CI_Controller {
         }
     }
 
-    function appActivity($device_id,$package_name) {
+    function appActivity($device_id, $package_name) {
         $this->db->where("device_id", $device_id);
         $this->db->where("package_name", $package_name);
         $this->db->set("seen", "yes");
@@ -141,11 +142,61 @@ class Command extends CI_Controller {
         $data["device_id"] = $device_id;
         $data["package_name"] = $package_name;
         $data['contactperson'] = $contactperson;
-        
-       $data['app_info'] =  $this->Command_model->appTitle($package_name);
+
+        $data['app_info'] = $this->Command_model->appTitle($package_name);
 
 
         $this->load->view('command/activitylist', $data);
+    }
+
+    public function ApplicationSetting() {
+        $data = array();
+        
+            $location_data = $this->Curd_model->get('android_apps');
+        $location_select = array();
+       
+
+        $dependes = array(
+            "location_data" => $location_select,
+        );
+
+        $data['depends'] = $dependes;
+        
+        $data['title'] = "Set Applications";
+        $data['description'] = "";
+        $data['form_title'] = "Add Apps";
+        $data['table_name'] = 'android_apps';
+        $form_attr = array(
+            "title" => array("title" => "Title", "required" => false, "place_holder" => "", "type" => "textarea", "default" => ""),
+            "image" => array("title" => "Image", "required" => false, "place_holder" => "", "type" => "textarea", "default" => ""),
+            "package_name" => array("title" => "Package Name", "required" => true, "place_holder" => "", "type" => "textarea", "default" => ""),
+            "playstore_url" => array("title" => "Play Store URL", "required" => false, "place_holder" => "", "type" => "textarea", "default" => ""),
+        );
+
+        if (isset($_POST['submitData'])) {
+            $postarray = array();
+            foreach ($form_attr as $key => $value) {
+                $postarray[$key] = $this->input->post($key);
+            }
+            $this->Curd_model->insert('android_apps', $postarray);
+            redirect("CMS/blogTag");
+        }
+
+
+        $tag_data = $this->Curd_model->get('android_apps');
+        $data['list_data'] = $tag_data;
+
+        $fields = array(
+            "id" => array("title" => "ID#", "width" => "100px"),
+            "package_name" => array("title" => "Package Name", "width" => "20%", "type" => "textarea",),
+            "image" => array("title" => "Package Name", "width" => "20%", "type" => "textarea",),
+            "title" => array("title" => "Package Name", "width" => "20%", "type" => "textarea",),
+            "playstore_url" => array("title" => "Play Store URL", "width" => "20%", "type" => "textarea",),
+        );
+
+        $data['fields'] = $fields;
+        $data['form_attr'] = $form_attr;
+        $this->load->view('layout/curd', $data);
     }
 
 }
