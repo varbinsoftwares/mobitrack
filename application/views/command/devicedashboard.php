@@ -228,10 +228,10 @@ $userdata = $this->session->userdata('logged_in');
                                 <img src="{{app.app_info.image}}" style="height:50px;width:50px;">
                             </div> 
 
-                            <span class="hidden-xs m-l-3 packagename-text text-uppercase" >
+                            <span class="hidden-xs m-l-3 packagename-text text-uppercase" title="{{app.app_info.title}}" >
                                 {{app.app_info.title}}
                             </span>
-                            <small class="hidden-xs m-l-3  text-uppercase" >
+                            <small class="hidden-xs m-l-3  text-uppercase" title="{{app.app_info.package_name}}">
                                 {{app.app_info.package_name}}
                             </small>
                         </a>
