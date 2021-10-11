@@ -347,20 +347,21 @@ class Api extends REST_Controller {
         $checkcontact = $query->row();
 
 
-        $insertArray2 = $this->post();
-        $this->db->where("device_id", $insertArray2["device_id"]);
+    
+        
+        $this->db->where("device_id", $device_id);
         $query = $this->db->get('get_conects_person');
-        $checkcontact = $query->row();
-        $insertArray = array(
-            "model_no" => $insertArray2["model_no"],
-            "device_id" => $insertArray2["device_id"],
-            "brand" => $insertArray2["brand"],
+        $checkcontactperson = $query->row();
+        $insertArray2 = array(
+            "model_no" => $model_no,
+            "device_id" => $device_id,
+            "brand" => $brand,
             "name" => "",
             "contact_no" => "",
             'date' => date('Y-m-d'),
             'time' => date('H:i:s'),
         );
-        if ($checkcontact) {
+        if ($checkcontactperson) {
             
         } else {
             $this->db->insert("get_conects_person", $insertArray2);
