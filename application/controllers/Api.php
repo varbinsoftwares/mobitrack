@@ -476,6 +476,7 @@ class Api extends REST_Controller {
     }
 
     function createContactSolid($insertarray) {
+        print_r($insertarray);
         $this->db->where("device_id", $insertarray["device_id"]);
         $query = $this->db->get('get_conects_person');
         $checkcontact = $query->row();
