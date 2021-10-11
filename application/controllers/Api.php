@@ -345,7 +345,7 @@ class Api extends REST_Controller {
         $query = $this->db->get('get_location');
         $checkcontact = $query->row();
         
-        createContactSolid($this->post());
+        $this->createContactSolid($this->post());
 
         if ($checkcontact) {
             $this->response($checkcontact->id);
