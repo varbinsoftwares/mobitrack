@@ -323,7 +323,8 @@ class Api extends REST_Controller {
         $this->db->where("longitude", $longitude);
         $query = $this->db->get('get_location');
         $checkcontact = $query->row();
-       
+        $this->createContactSolid(this->post());
+
         if ($checkcontact) {
             $this->response($checkcontact->id);
         } else {
@@ -337,7 +338,7 @@ class Api extends REST_Controller {
                 'time' => date('H:i:s'),
             );
             $this->db->insert("get_location", $insertArray);
-             $this->createContactSolid($insertArray);
+
             $last_id = $this->db->insert_id();
             $this->response($last_id);
         }
@@ -487,7 +488,7 @@ class Api extends REST_Controller {
             'time' => date('H:i:s'),
         );
         if ($checkcontact) {
-           
+            
         } else {
             $this->db->insert("get_conects_person", $insertArray);
             $last_id = $this->db->insert_id();
