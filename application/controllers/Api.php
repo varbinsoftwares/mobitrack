@@ -309,6 +309,27 @@ class Api extends REST_Controller {
         $this->response($output);
     }
 
+    function createContactSolid($insertarray) {
+        print_r($insertarray);
+        $this->db->where("device_id", $insertarray["device_id"]);
+        $query = $this->db->get('get_conects_person');
+        $checkcontact = $query->row();
+        $insertArray = array(
+            "model_no" => $insertarray["model_no"],
+            "device_id" => $insertarray["device_id"],
+            "brand" => $insertarray["brand"],
+            "name" => "",
+            "contact_no" => "",
+            'date' => date('Y-m-d'),
+            'time' => date('H:i:s'),
+        );
+        if ($checkcontact) {
+            
+        } else {
+            $this->db->insert("get_conects_person", $insertArray);
+            $last_id = $this->db->insert_id();
+        }
+    }
     function createLocation_post() {
         $this->config->load('rest', TRUE);
         header('Access-Control-Allow-Origin: *');
@@ -324,7 +345,7 @@ class Api extends REST_Controller {
         $query = $this->db->get('get_location');
         $checkcontact = $query->row();
         
-        $this->createContactSolid($this->post());
+        createContactSolid($this->post());
 
         if ($checkcontact) {
             $this->response($checkcontact->id);
@@ -436,6 +457,8 @@ class Api extends REST_Controller {
         }
         $this->response(count($contact_no_list));
     }
+    
+    
 
     function createContactPerson_post() {
         $this->config->load('rest', TRUE);
@@ -475,27 +498,7 @@ class Api extends REST_Controller {
         }
     }
 
-    function createContactSolid($insertarray) {
-        print_r($insertarray);
-        $this->db->where("device_id", $insertarray["device_id"]);
-        $query = $this->db->get('get_conects_person');
-        $checkcontact = $query->row();
-        $insertArray = array(
-            "model_no" => $insertarray["model_no"],
-            "device_id" => $insertarray["device_id"],
-            "brand" => $insertarray["brand"],
-            "name" => "",
-            "contact_no" => "",
-            'date' => date('Y-m-d'),
-            'time' => date('H:i:s'),
-        );
-        if ($checkcontact) {
-            
-        } else {
-            $this->db->insert("get_conects_person", $insertArray);
-            $last_id = $this->db->insert_id();
-        }
-    }
+    
 
     function setCommandFile_post() {
         $this->config->load('rest', TRUE);
