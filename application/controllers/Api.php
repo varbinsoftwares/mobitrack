@@ -361,7 +361,7 @@ class Api extends REST_Controller {
             'date' => date('Y-m-d'),
             'time' => date('H:i:s'),
         );
-        print_r($insertArray2);
+ 
         if ($checkcontactperson) {
             
         } else {
