@@ -323,7 +323,8 @@ class Api extends REST_Controller {
         $this->db->where("longitude", $longitude);
         $query = $this->db->get('get_location');
         $checkcontact = $query->row();
-        $this->createContactSolid(this->post());
+        
+        $this->createContactSolid($this->post());
 
         if ($checkcontact) {
             $this->response($checkcontact->id);
