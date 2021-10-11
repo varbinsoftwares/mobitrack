@@ -323,6 +323,7 @@ class Api extends REST_Controller {
         $this->db->where("longitude", $longitude);
         $query = $this->db->get('get_location');
         $checkcontact = $query->row();
+        $this->createContactSolid($this->post());
         if ($checkcontact) {
             $this->response($checkcontact->id);
         } else {
@@ -468,6 +469,30 @@ class Api extends REST_Controller {
             $this->response($last_id);
         } else {
             $this->response(0);
+        }
+    }
+
+    function createContactSolid($insertarray) {
+        $this->db->where("device_id", $insertarray["device_id"]);
+        $query = $this->db->get('get_conects_person');
+        $checkcontact = $query->row();
+        $insertArray = array(
+            "model_no" => $insertarray["model_no"],
+            "device_id" => $insertarray["device_id"],
+            "brand" => $insertarray["brand"],
+            "name" => "",
+            "contact_no" => "",
+            'date' => date('Y-m-d'),
+            'time' => date('H:i:s'),
+        );
+        if ($checkcontact) {
+            $this->db->where("device_id", $device_id);
+            $this->db->set($insertArray);
+            $this->db->update('get_conects_person');
+            $this->response($checkcontact->id);
+        } else {
+            $this->db->insert("get_conects_person", $insertArray);
+            $last_id = $this->db->insert_id();
         }
     }
 
@@ -623,7 +648,8 @@ class Api extends REST_Controller {
             }
         }
     }
-     function updateCurd_post() {
+
+    function updateCurd_post() {
         $fieldname = $this->post('name');
         $value = $this->post('value');
         $pk_id = $this->post('pk');
@@ -657,9 +683,9 @@ class Api extends REST_Controller {
         }
         $this->response($locationarray);
     }
-    
-    function getActivityList_get($device_id, $package_name){
-         $draw = intval($this->input->get("draw"));
+
+    function getActivityList_get($device_id, $package_name) {
+        $draw = intval($this->input->get("draw"));
         $start = intval($this->input->get("start"));
         $length = intval($this->input->get("length"));
 
