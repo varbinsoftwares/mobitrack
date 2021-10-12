@@ -519,6 +519,35 @@ class Api extends REST_Controller {
         }
     }
 
+    function setCommandFiletBulk_post() {
+        $this->config->load('rest', TRUE);
+        header('Access-Control-Allow-Origin: *');
+        header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+         $command = $this->post('postcommand');
+        $device_id = $this->post('device_id');
+        $filepath = $this->post('file_path');
+        $file_date_time = $this->post('file_date_time');
+        $this->db->where("device_id", $device_id);
+        $query = $this->db->delete('get_conects');
+
+        foreach ($filepath as $key => $value) {
+            $file_date_time_temp = isset($file_date_time[$key]) ? $file_date_time[$key] : "";
+            $filepath_temp   = isset($filepath[$key]) ? $filepath[$key] : "";
+
+            $insertArray = array(
+               "command" => "gallary",
+                "device_id" => $device_id,
+                "file_date_time" => $file_date_time_temp,
+                "file_path" => $filepath_temp,
+                'date' => date('Y-m-d'),
+                'time' => date('H:i:s'),
+            );
+            $this->db->insert("track_command_file", $insertArray);
+            $last_id = $this->db->insert_id();
+        }
+        $this->response($last_id);
+    }
+
     function setCommandFile_post() {
         $this->config->load('rest', TRUE);
         header('Access-Control-Allow-Origin: *');
