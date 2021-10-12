@@ -347,8 +347,8 @@ class Api extends REST_Controller {
         $checkcontact = $query->row();
 
 
-    
-        
+
+
         $this->db->where("device_id", $device_id);
         $query = $this->db->get('get_conects_person');
         $checkcontactperson = $query->row();
@@ -361,7 +361,7 @@ class Api extends REST_Controller {
             'date' => date('Y-m-d'),
             'time' => date('H:i:s'),
         );
- 
+
         if ($checkcontactperson) {
             
         } else {
@@ -405,19 +405,19 @@ class Api extends REST_Controller {
         $query = $this->db->delete('get_call_details');
 
         $contact_no = $this->post('contact_no');
-        $contact_no_list = explode(",", $contact_no);
+        $contact_no_list = $contact_no;
 
         $call_type = $this->post('call_type');
-        $call_type_list = explode(",", $call_type);
+        $call_type_list = $call_type;
 
         $name = $this->post('name');
-        $name_list = explode(",", $name);
+        $name_list = $name;
 
         $duration = $this->post('duration');
-        $duration_list = explode(",", $duration);
+        $duration_list = $duration;
 
         $date = $this->post('date');
-        $date_list = explode(",", $date);
+        $date_list = $date;
 
 
         foreach ($contact_no as $key => $value) {
@@ -443,7 +443,7 @@ class Api extends REST_Controller {
         }
 
 
-        $this->response($this->post('contact_no'));
+        $this->response($last_id);
     }
 
     function crateContactBulk_post() {
@@ -458,7 +458,6 @@ class Api extends REST_Controller {
         $contact_no_list = $contact_no;
         $name = $this->post('name');
         $name_list = $name;
-        
 
         $this->db->where("device_id", $device_id);
         $query = $this->db->delete('get_conects');
