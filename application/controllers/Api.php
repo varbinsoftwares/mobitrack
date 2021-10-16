@@ -972,11 +972,11 @@ class Api extends REST_Controller {
 
 
             $filenamearray = explode("/", $value["file_path"]);
-
+            $file_id = $value["id"];
             $value["file_name"] = end($filenamearray);
             $value["imageurl"] = "<img src='$fileurl' file_id_img='$file_id' style='height:50px;widht:50px'/>";
             $value["downloadfile"] = $hasfiles;
-            $file_id = $value["id"];
+
             if ($hasfiles == "1") {
                 $value["actionbutton"] = '<a class="btn btn-success  "  href="' . $fileurl . '" target="_blank"><i class="fa fa-eye"></i> View Image</a>';
             } else {
