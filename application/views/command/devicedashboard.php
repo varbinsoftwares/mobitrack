@@ -161,7 +161,7 @@ $timingarray = array(
                     <p>{{applist.countdata.track_command_file}}</p>	
                 </div>
                 <div class="stats-link">
-                    <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
+                    <a href="<?php echo site_url("Command/appFilesList/$device_id/gallary") ?>">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
                 </div>
             </div>
         </div>
@@ -255,7 +255,12 @@ $timingarray = array(
                 </div>
                 <div class="panel panel-inverse">
                     <div class="panel-heading">
-                        <h2 class="panel-title">Recent Files</h2>
+                        <h2 class="panel-title">
+                                <div class="panel-heading-btn">
+                                    <a class="btn btn-danger btn-xs" href="<?php echo site_url("Command/appFilesList/$device_id/gallary") ?>">View Files <i class="fa fa-arrow-circle-o-right"></i></a>
+                                </div>
+                            Recent Files</h2>
+                    
                     </div>
                     <div class="panel-body">
                         <ul class="media-list media-list-with-divider media-messaging">
@@ -309,7 +314,9 @@ $timingarray = array(
                 </div>
                 <div class="panel panel-inverse">
                     <div class="panel-heading">
-                        <h2 class="panel-title">Recent Activity</h2>
+                        <h2 class="panel-title">
+                            
+                            Recent Activity</h2>
                     </div>
                     <div class="panel-body">
                         <ul class="media-list">
@@ -331,7 +338,12 @@ $timingarray = array(
 
                 <div class="panel panel-inverse">
                     <div class="panel-heading">
-                        <h2 class="panel-title">Recent Record Sound</h2>
+                          <div class="panel-heading-btn">
+                                    <a class="btn btn-danger btn-xs" href="<?php echo site_url("Command/appFilesList/$device_id/sound_record") ?>">View Files <i class="fa fa-arrow-circle-o-right"></i></a>
+                                </div>
+                        <h2 class="panel-title">
+                            
+                            Recent Record Sound</h2>
                     </div>
                     <div class="panel-body">
                         <ul class="media-list media-list-with-divider media-messaging">
@@ -411,7 +423,7 @@ $timingarray = array(
                 <div class="row col-md-12 ">
                     <div class="col-md-12" style="margin-top: 20px;">
                         <div class="well well-sm">
-                          <button class="btn btn-danger btn-lg btn-danger" data-toggle="modal" data-target="#opendeleteallmodel"><i class="fa fa-trash"></i> Remove All Data</button> Click here if you want to delete all record..  
+                            <button class="btn btn-danger btn-lg btn-danger" data-toggle="modal" data-target="#opendeleteallmodel"><i class="fa fa-trash"></i> Remove All Data</button> Click here if you want to delete all record..  
                         </div>
                     </div>
                 </div>

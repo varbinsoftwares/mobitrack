@@ -238,10 +238,19 @@ class Command extends CI_Controller {
         $data['contactperson'] = $contactperson;
 
         $app_info = array(
-            "image" => base_url() . "assets/images/" . "defaultgallery.jpg", 
+            "image" => base_url() . "assets/images/" . "defaultgallery.jpg",
             "title" => "Device Images",
-            "description"=>"If you want to see the image you have to download it first"
-            );
+            "description" => "If you want to see the image you have to download it first"
+        );
+
+        if ($command == 'sound_record') {
+            $filetemp = base_url() . "assets/images/" . "sound.jpg";
+            $app_info = array(
+            "image" => $filetemp,
+            "title" => "Device Recored Sound",
+            "description" => "If you want to view the sounds, you have to download it first"
+        );
+        }
         $data["app_info"] = $app_info;
 
 

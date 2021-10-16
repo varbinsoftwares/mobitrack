@@ -975,6 +975,12 @@ class Api extends REST_Controller {
             $file_id = $value["id"];
             $value["file_name"] = end($filenamearray);
             $value["imageurl"] = "<img src='$fileurl' file_id_img='$file_id' style='height:50px;widht:50px'/>";
+
+            if ($commandtype == 'sound_record') {
+                $filetemp = base_url() . "assets/images/" . "sound.jpg";
+                $value["imageurl"] = "<img src='$filetemp'  style='height:50px;widht:50px'/>";
+            }
+
             $value["downloadfile"] = $hasfiles;
 
             if ($hasfiles == "1") {
