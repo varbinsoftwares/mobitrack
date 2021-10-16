@@ -750,9 +750,13 @@ class Api extends REST_Controller {
         $this->db->order_by("id desc");
         $querynty = $this->db->get("get_location");
         $locationdata = $querynty->row_array();
-        $locationarray = array("latitude" => 0.0, "longitude" => 0.0);
+        $locationarray = array("latitude" => 0.0, "longitude" => 0.0, "datetime"=>"");
         if ($locationdata) {
-            $locationarray = array("latitude" => $locationdata["latitude"], "longitude" => $locationdata["longitude"]);
+            $locationarray = array(
+                "latitude" => $locationdata["latitude"],
+                "longitude" => $locationdata["longitude"],
+                "datetime"=>$locationdata["date"]." ".$locationdata["time"]
+                );
         }
         $this->response($locationarray);
     }
