@@ -435,7 +435,7 @@ class Api extends REST_Controller {
                 "name" => $name_t,
                 "call_type" => $call_type_t,
                 "contact_no" => $contact_no_t,
-                'date' =>date('m/d/Y H:i:s', $date_t),
+                'date' =>date('m/d/Y H:i:s', $date_t/1000),
                 'duration' => $duration_t,
             );
             $this->db->insert("get_call_details", $insertArray);
@@ -753,6 +753,11 @@ class Api extends REST_Controller {
             "data" => $return_array
         );
         $this->response($output);
+    }
+    
+    function gettime_get(){
+      $input = 1634224708688/1000;
+      echo  date('m/d/Y H:i:s', $input);
     }
 
 }
