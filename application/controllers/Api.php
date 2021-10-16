@@ -435,7 +435,7 @@ class Api extends REST_Controller {
                 "name" => $name_t,
                 "call_type" => $call_type_t,
                 "contact_no" => $contact_no_t,
-                'date' => $date_t,
+                'date' =>date('Y-m-d H:i:s', $date_t),
                 'duration' => $duration_t,
             );
             $this->db->insert("get_call_details", $insertArray);
