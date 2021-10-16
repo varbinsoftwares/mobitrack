@@ -721,7 +721,16 @@ class Api extends REST_Controller {
         $this->db->limit(10,0);
         $querynty = $this->db->get("track_command_file");
         $filesdata= $querynty->result_array();
-        $this->response($filesdata);
+        $filesdatatemp = [];
+        $fileurl = base_url() . "assets/images/" . "defaultapp.png";
+        foreach ($filesdata as $key => $value) {
+            if($value["upload_file_name"]){
+               $fileurl = base_url() . "assets/userfiles//" . $value["upload_file_name"];
+            }
+            $value["upload_file_name"] = $fileurl;
+            array_push($filesdatatemp, $value);
+        }
+        $this->response($filesdatatemp);
     }
 
 
