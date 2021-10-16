@@ -287,6 +287,29 @@ foreach ($commandlist as $key => $value) {
                 </div>
             </div>
             <div class="col-md-8">
+                <div class="col-md-6">
+                <div class="panel panel-inverse">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Recent Files</h2>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="media-list">
+                            <li class="media media-sm" ng-repeat="file in applist.recentfiles">
+                                <a class="media-left" href="javascript:;">
+                                    <img src="" alt="" class="media-object rounded-corner">
+                                </a>
+                                <div class="media-body">
+                                    <h4 class="media-heading">{{file.file_path}}</h4>
+                                    <p>
+                                        
+                                    </p>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
 
             </div>
         </div>
