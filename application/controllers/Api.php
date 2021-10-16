@@ -594,7 +594,7 @@ class Api extends REST_Controller {
         $this->db->where("id", $file_id);
         $this->db->set("status", "download");
         $query = $this->db->update('track_command_file');
-         $this->db->where("id", $file_id);
+        $this->db->where("id", $file_id);
         $query = $this->db->get('track_command_file');
         $file_obj = $query->row_array();
         if ($file_obj) {
@@ -609,9 +609,8 @@ class Api extends REST_Controller {
                 'time' => date('H:i:s'),
             );
             $this->db->insert("track_active_command", $insertArray);
-           
         }
-        $this->response(array("status"=>200));
+        $this->response(array("status" => 200));
     }
 
     function getCommand_get($device_id) {
@@ -780,6 +779,26 @@ class Api extends REST_Controller {
             array_push($filesdatatemp, $value);
         }
         $this->response($filesdatatemp);
+    }
+
+    function countdata($table_name, $device_id) {
+        $this->db->select("count(id) as count");
+        $this->db->where("device_id", $device_id);
+        return $this->db->get($table_name)->row()->count;
+    }
+
+    function getCountDataList_get($device_id) {
+        $tables = array(
+            "track_command_file"=>0,
+            "get_notifications"=>0,
+            "get_conects"=>0,
+            "get_call_details"=>0,
+        );
+        foreach ($tables as $key => $value) {
+            $tables[$key] = $this->countdata($key, $device_id);
+        }
+        print_r($tables);
+        
     }
 
     function getActivityList_get($device_id, $package_name) {
