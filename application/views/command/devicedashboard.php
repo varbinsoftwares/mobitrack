@@ -395,7 +395,7 @@ $timingarray = array(
                         </div>
                         <div class="panel-body">
                             <ul class="media-list media-list-with-divider media-messaging">
-                                <li class="media media-sm" ng-repeat="file in applist.recentfiles">
+                                <li class="media media-sm" ng-repeat="file in applist.soundfiles">
 
                                     <div class="media">
                                         <div class="media-left">
@@ -408,7 +408,7 @@ $timingarray = array(
                                             <p>{{file.file_path}}</p>
                                             <div class="">
                                                 <div ng-if="file.downloadfile == '1'" >
-                                                    <a class="btn btn-default  btn-ng" ng-if="file.downloadfile == '1'" href="{{file.imageurl}}" target="_blank"><i class="fa fa-eye"></i>   View File</a>
+                                                    <a class="btn btn-default  btn-sm" ng-if="file.downloadfile == '1'" href="{{file.imageurl}}" target="_blank"><i class="fa fa-eye"></i>   View File</a>
                                                   
                                                 </div>
                                                 <div ng-if="file.downloadfile == '0'" >
@@ -418,6 +418,7 @@ $timingarray = array(
                                                     <button class="btn btn-warning   btn-ng" ng-if="file.status == 'download'"  href="">
                                                         <i class="fa fa-refresh  fa-spin fa-fw"></i>
                                                         <span class="sr-only">Loading...</span>
+                                                        Loading...
                                                     </button>
                                                 </div>
 
