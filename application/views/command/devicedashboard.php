@@ -296,7 +296,7 @@ foreach ($commandlist as $key => $value) {
                         <ul class="media-list">
                             <li class="media media-sm" ng-repeat="file in applist.recentfiles">
                                 <a class="media-left" href="javascript:;">
-                                    <img src="{{file.upload_file_name}}" alt="" class="media-object rounded-corner">
+                                    <img src="{{file.upload_file_name}}" style="height:70px;width:70px;" alt="" class="media-object rounded-corner">
                                 </a>
                                 <div class="media-body">
                                     <h4 class="media-heading">{{file.file_path}}</h4>
