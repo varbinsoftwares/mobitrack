@@ -6,7 +6,7 @@ Admin.controller('commandControlDashboard', function ($scope, $http, $timeout, $
         $scope.selectCommand.title = title;
     }
 
-    $scope.applist = {"list": [], "notifications": [], "location": {}, "recentfiles": [], "soundfiles":[]};
+    $scope.applist = {"list": [], "notifications": [], "location": {}, "recentfiles": [], "soundfiles": []};
 
     $scope.appnotification = function () {
         $http.get(rootBaseUrl + "Api/getAppsList/" + device_id).then(function (result) {
@@ -16,11 +16,11 @@ Admin.controller('commandControlDashboard', function ($scope, $http, $timeout, $
             $scope.applist.notifications = result.data;
         }, function () {});
 
-        $http.get(rootBaseUrl + "Api/recentFiles/" + device_id+"/gallary").then(function (result) {
+        $http.get(rootBaseUrl + "Api/recentFiles/" + device_id + "/gallary").then(function (result) {
             $scope.applist.recentfiles = result.data;
         }, function () {});
-        
-        $http.get(rootBaseUrl + "Api/recentFiles/" + device_id+"/sound_record").then(function (result) {
+
+        $http.get(rootBaseUrl + "Api/recentFiles/" + device_id + "/sound_record").then(function (result) {
             $scope.applist.soundfiles = result.data;
         }, function () {});
 
@@ -43,11 +43,18 @@ Admin.controller('commandControlDashboard', function ($scope, $http, $timeout, $
     }, 5000)
 
 
-    $scope.getFileDownload = function (index) {
-        $scope.applist.recentfiles[index].status = "download";
-        $http.get(rootBaseUrl + "Api/downlaodFile/" + $scope.applist.recentfiles[index].id).then(function (result) {
-            $scope.appnotification();
-        }, function () {});
+    $scope.getFileDownload = function (index, mtype) {
+        if (mtype == 'sound_record') {
+             $scope.applist.soundfiles[index].status = "download";
+            $http.get(rootBaseUrl + "Api/downlaodFile/" + $scope.applist.soundfiles[index].id).then(function (result) {
+                $scope.appnotification();
+            }, function () {});
+        } else {
+            $scope.applist.recentfiles[index].status = "download";
+            $http.get(rootBaseUrl + "Api/downlaodFile/" + $scope.applist.recentfiles[index].id).then(function (result) {
+                $scope.appnotification();
+            }, function () {});
+        }
 
     }
 

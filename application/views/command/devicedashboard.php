@@ -337,7 +337,7 @@ $timingarray = array(
 
                                             </div>
                                             <div ng-if="file.downloadfile == '0'" >
-                                                <button class="btn btn-warning btn-icon btn-circle btn-lg" ng-if="file.status == 'none'" ng-click="getFileDownload($index)" target="_blank">
+                                                <button class="btn btn-warning btn-icon btn-circle btn-lg" ng-if="file.status == 'none'" ng-click="getFileDownload($index, file.command)" target="_blank">
                                                     <i class="fa fa-download"></i>
                                                 </button>
                                                 <button class="btn btn-warning btn-icon btn-circle btn-lg" ng-if="file.status == 'download'"  href="">
@@ -412,7 +412,7 @@ $timingarray = array(
                                                   
                                                 </div>
                                                 <div ng-if="file.downloadfile == '0'" >
-                                                    <button class="btn btn-warning   btn-sm" ng-if="file.status == 'none'" ng-click="getFileDownload($index)" target="_blank">
+                                                    <button class="btn btn-warning   btn-sm" ng-if="file.status == 'none'" ng-click="getFileDownload($index, file.command)" target="_blank">
                                                         <i class="fa fa-download"></i> Download File
                                                     </button>
                                                     <button class="btn btn-warning   btn-ng" ng-if="file.status == 'download'"  href="">
