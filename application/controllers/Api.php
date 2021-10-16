@@ -770,6 +770,10 @@ class Api extends REST_Controller {
             } else {
                 $fileurl = base_url() . "assets/images/" . "defaultgallery.jpg";
             }
+            
+            if($condition == "sound_record"){
+                  $fileurl = base_url() . "assets/images/" . "sound.jpg";
+            }
 
             $filenamearray = explode("/", $value["file_path"]);
 

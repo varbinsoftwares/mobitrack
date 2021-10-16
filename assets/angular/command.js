@@ -39,7 +39,7 @@ Admin.controller('commandControlDashboard', function ($scope, $http, $timeout, $
 
     $scope.appnotification();
     $interval(function () {
-        $scope.appnotification();
+//        $scope.appnotification();
     }, 5000)
 
 
