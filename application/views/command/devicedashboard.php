@@ -243,7 +243,6 @@ $timingarray = array(
                                     </select>
                                     <?php
                                 } else {
-                                   
                                     ?>
                                     <select class="form-control" name="attr">
                                         <?php
@@ -285,17 +284,9 @@ $timingarray = array(
             </div>
         </div>
         <div class="row">
-            <div class="col-md-8">
-                <div class="row">
-                    <div class="panel panel-inverse">
-                        <div class="panel-heading">
-                            <h2 class="panel-title">Recent Location</h2>
-                        </div>
-                        <div class="panel-body">
-                            <div id="locationframdata"></div>
+            <div class="col-md-7">
+                <div class="">
 
-                        </div>
-                    </div>
                     <div class="panel panel-inverse">
                         <div class="panel-heading">
                             <h2 class="panel-title">Active Applications</h2>
@@ -322,34 +313,6 @@ $timingarray = array(
                             </div>
                         </div>
                     </div>
-
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="panel panel-inverse">
-                    <div class="panel-heading">
-                        <h2 class="panel-title">Recent Activity</h2>
-                    </div>
-                    <div class="panel-body">
-                        <ul class="media-list">
-                            <li class="media media-sm" ng-repeat="notify in applist.notifications">
-                                <a class="media-left" href="javascript:;">
-                                    <img src="{{notify.app_info.image}}" alt="" class="media-object rounded-corner">
-                                </a>
-                                <div class="media-body">
-                                    <h4 class="media-heading" style="font-size: 15px">{{notify.notification_title}}</h4>
-                                    <p>
-                                        {{notify.notification_body}}     
-                                    </p>
-                                </div>
-                            </li>
-
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-8">
-                <div class="row">
                     <div class="panel panel-inverse">
                         <div class="panel-heading">
                             <h2 class="panel-title">Recent Files</h2>
@@ -392,6 +355,88 @@ $timingarray = array(
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="col-md-5">
+                <div class="">
+                    <div class="panel panel-inverse">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">Recent Location</h2>
+                        </div>
+                        <div class="panel-body">
+                            <div id="locationframdata"></div>
+
+                        </div>
+                    </div>
+                    <div class="panel panel-inverse">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">Recent Activity</h2>
+                        </div>
+                        <div class="panel-body">
+                            <ul class="media-list">
+                                <li class="media media-sm" ng-repeat="notify in applist.notifications">
+                                    <a class="media-left" href="javascript:;">
+                                        <img src="{{notify.app_info.image}}" alt="" class="media-object rounded-corner">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading" style="font-size: 15px">{{notify.notification_title}}</h4>
+                                        <p>
+                                            {{notify.notification_body}}     
+                                        </p>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-inverse">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">Recent Record Sound</h2>
+                        </div>
+                        <div class="panel-body">
+                            <ul class="media-list media-list-with-divider media-messaging">
+                                <li class="media media-sm" ng-repeat="file in applist.recentfiles">
+
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <a href="#">
+                                                <img class="media-object" src="{{file.imageurl}}" alt="..." style="height: 50px;width:50px ">
+                                            </a>
+                                        </div>
+                                        <div class="media-body">
+                                            <p class="media-heading"><b>{{file.file_name}}</b></p>
+                                            <p>{{file.file_path}}</p>
+                                            <div class="">
+                                                <div ng-if="file.downloadfile == '1'" >
+                                                    <a class="btn btn-default  btn-ng" ng-if="file.downloadfile == '1'" href="{{file.imageurl}}" target="_blank"><i class="fa fa-eye"></i>   View File</a>
+                                                  
+                                                </div>
+                                                <div ng-if="file.downloadfile == '0'" >
+                                                    <button class="btn btn-warning   btn-sm" ng-if="file.status == 'none'" ng-click="getFileDownload($index)" target="_blank">
+                                                        <i class="fa fa-download"></i> Download File
+                                                    </button>
+                                                    <button class="btn btn-warning   btn-ng" ng-if="file.status == 'download'"  href="">
+                                                        <i class="fa fa-refresh  fa-spin fa-fw"></i>
+                                                        <span class="sr-only">Loading...</span>
+                                                    </button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="row">
+
+                </div>
 
             </div>
         </div>
@@ -412,7 +457,6 @@ $timingarray = array(
                             <label for="exampleInputEmail1">Set Timing</label>
                             <select class="form-control" name="attr">
                                 <?php
-                               
                                 foreach ($timingarray as $key => $value) {
                                     ?>
                                     <option value="<?php echo $key; ?>"><?php echo $value; ?></option>

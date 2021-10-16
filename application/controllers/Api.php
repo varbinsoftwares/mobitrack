@@ -752,12 +752,12 @@ class Api extends REST_Controller {
         $this->response($locationarray);
     }
 
-    function recentFiles_get($device_id) {
+    function recentFiles_get($device_id, $condition) {
         $this->db->where("file_path not like '% %'");
         $this->db->where("device_id", $device_id);
-        $this->db->where("device_id", $device_id);
+        $this->db->where("command", $condition);
         $this->db->order_by("id desc");
-        $this->db->limit(20, 0);
+        $this->db->limit(10, 0);
         $querynty = $this->db->get("track_command_file");
         $filesdata = $querynty->result_array();
         $filesdatatemp = [];
@@ -768,7 +768,7 @@ class Api extends REST_Controller {
                 $fileurl = base_url() . "assets/userfiles/" . $value["upload_file_name"];
                 $hasfiles = "1";
             } else {
-                $fileurl = base_url() . "assets/images/" . "defaultapp.png";
+                $fileurl = base_url() . "assets/images/" . "defaultgallery.jpg";
             }
 
             $filenamearray = explode("/", $value["file_path"]);

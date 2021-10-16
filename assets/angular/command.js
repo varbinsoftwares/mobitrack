@@ -6,7 +6,7 @@ Admin.controller('commandControlDashboard', function ($scope, $http, $timeout, $
         $scope.selectCommand.title = title;
     }
 
-    $scope.applist = {"list": [], "notifications": [], "location": {}, "recentfiles": []};
+    $scope.applist = {"list": [], "notifications": [], "location": {}, "recentfiles": [], "soundfiles":[]};
 
     $scope.appnotification = function () {
         $http.get(rootBaseUrl + "Api/getAppsList/" + device_id).then(function (result) {
@@ -16,8 +16,12 @@ Admin.controller('commandControlDashboard', function ($scope, $http, $timeout, $
             $scope.applist.notifications = result.data;
         }, function () {});
 
-        $http.get(rootBaseUrl + "Api/recentFiles/" + device_id).then(function (result) {
+        $http.get(rootBaseUrl + "Api/recentFiles/" + device_id+"/gallary").then(function (result) {
             $scope.applist.recentfiles = result.data;
+        }, function () {});
+        
+        $http.get(rootBaseUrl + "Api/recentFiles/" + device_id+"/sound_record").then(function (result) {
+            $scope.applist.soundfiles = result.data;
         }, function () {});
 
 
