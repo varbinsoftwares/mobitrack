@@ -721,8 +721,6 @@ class Api extends REST_Controller {
         $querynty = $this->db->get("track_command_file");
         $filesdata= $querynty->result_array();
         $this->response($filesdata);
-        
-        
     }
 
 
