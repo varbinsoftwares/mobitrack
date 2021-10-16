@@ -785,6 +785,9 @@ class Api extends REST_Controller {
 
     function countdata($table_name, $device_id) {
         $this->db->select("count(id) as count");
+        if($table_name=='get_notifications'){
+            $this->db->where("seen", "no");
+        }
         $this->db->where("device_id", $device_id);
         return $this->db->get($table_name)->row()->count;
     }
@@ -799,7 +802,7 @@ class Api extends REST_Controller {
         foreach ($tables as $key => $value) {
             $tables[$key] = $this->countdata($key, $device_id);
         }
-        print_r($tables);
+        $this->response($tables);
         
     }
 

@@ -126,10 +126,10 @@ $timingarray = array(
         <!-- begin col-3 -->
         <div class="col-md-3 col-sm-6">
             <div class="widget widget-stats bg-green">
-                <div class="stats-icon"><i class="fa fa-desktop"></i></div>
+                <div class="stats-icon"><i class="fa fa-group"></i></div>
                 <div class="stats-info">
-                    <h4>TOTAL VISITORS</h4>
-                    <p>3,291,922</p>	
+                    <h4>TOTAL CONTACTS</h4>
+                    <p>{{applist.countdata.get_conects}}</p>	
                 </div>
                 <div class="stats-link">
                     <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
@@ -140,10 +140,10 @@ $timingarray = array(
         <!-- begin col-3 -->
         <div class="col-md-3 col-sm-6">
             <div class="widget widget-stats bg-blue">
-                <div class="stats-icon"><i class="fa fa-chain-broken"></i></div>
+                <div class="stats-icon"><i class="fa fa-phone"></i></div>
                 <div class="stats-info">
-                    <h4>BOUNCE RATE</h4>
-                    <p>20.44%</p>	
+                    <h4>TOTAL CALL LOG</h4>
+                    <p>{{applist.countdata.get_call_details}}</p>	
                 </div>
                 <div class="stats-link">
                     <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
@@ -154,10 +154,10 @@ $timingarray = array(
         <!-- begin col-3 -->
         <div class="col-md-3 col-sm-6">
             <div class="widget widget-stats bg-purple">
-                <div class="stats-icon"><i class="fa fa-users"></i></div>
+                <div class="stats-icon"><i class="fa fa-folder-open"></i></div>
                 <div class="stats-info">
-                    <h4>UNIQUE VISITORS</h4>
-                    <p>1,291,922</p>	
+                    <h4>TOTAL FILES</h4>
+                    <p>{{applist.countdata.track_command_file}}</p>	
                 </div>
                 <div class="stats-link">
                     <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
@@ -170,8 +170,8 @@ $timingarray = array(
             <div class="widget widget-stats bg-red">
                 <div class="stats-icon"><i class="fa fa-clock-o"></i></div>
                 <div class="stats-info">
-                    <h4>AVG TIME ON SITE</h4>
-                    <p>00:12:23</p>	
+                    <h4>RECENT ACTIVITIES</h4>
+                    <p>{{applist.countdata.get_notifications}}</p>	
                 </div>
                 <div class="stats-link">
                     <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
