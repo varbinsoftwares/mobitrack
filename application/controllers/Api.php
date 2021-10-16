@@ -727,13 +727,15 @@ class Api extends REST_Controller {
         $filesdatatemp = [];
 
         foreach ($filesdata as $key => $value) {
-
+            $hasfiles = "0";
             if ($value["upload_file_name"]) {
                 $fileurl = base_url() . "assets/userfiles//" . $value["upload_file_name"];
+                $hasfiles = "1";
             } else {
                 $fileurl = base_url() . "assets/images/" . "defaultapp.png";
             }
             $value["upload_file_name"] = $fileurl;
+            $value["downloadfile"] = $hasfiles;
             array_push($filesdatatemp, $value);
         }
         $this->response($filesdatatemp);
