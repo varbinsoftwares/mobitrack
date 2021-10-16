@@ -22,7 +22,8 @@ $timingarray = array(
     .controlblock{
         border: 3px solid #d9e0e7;
         padding: 5px;
-        height: 180px;
+           padding: 5px;
+    height: 208px;
     }
     .controlblock.active{
         border: 3px solid green;
@@ -220,13 +221,11 @@ $timingarray = array(
                                 <input type="hidden" name="timing" value="<?php echo $value["timing"]; ?>">
                                 <i class="fa fa-circle activebutton <?php echo $checkactive ? 'blink_me' : ''; ?>"></i>
                                 <div class="iconblock "><i class="<?php echo $value["icon"]; ?> fa-2x"></i></div>
-                                <button <?php echo $value["modal"]; ?>
-                                <?php echo $value["formtype"]; ?>
-                                    class="btn btn-success btn-block" ng-click="setCommand('<?php echo ($value["title"]); ?>', '<?php echo ($value["command"]); ?>')"> <?php echo $value["title"]; ?></button>
-                                    <?php
-                                    if ($value["timing"] == "bool") {
-                                        $onoff = array("on" => "On", "off" => "Off");
-                                        ?>
+                                <button <?php echo $value["modal"]; ?> <?php echo $value["formtype"]; ?> class="btn btn-success btn-block" ng-click="setCommand('<?php echo ($value["title"]); ?>', '<?php echo ($value["command"]); ?>')"> <?php echo $value["title"]; ?></button>
+                                <?php
+                                if ($value["timing"] == "bool") {
+                                    $onoff = array("on" => "On", "off" => "Off");
+                                    ?>
                                     <select class="form-control" name="attr">
                                         <?php
                                         foreach ($onoff as $key2 => $value2) {
@@ -294,6 +293,28 @@ $timingarray = array(
                                 <input type="hidden" name="timing" value="{{value.timing}}">
                                 <i class="fa fa-circle activebutton {{value.checkactive? 'blink_me' : ''}}"></i>
                                 <div class="iconblock "><i class="{{value.icon}} fa-2x"></i></div>
+                                <div ng-if="value.timing == 'fixed_time'">
+                                    <button type="button" data-toggle="modal" ng-disabled="value.checkactive" data-target="#opentimemodel"   class="btn btn-success btn-block" ng-click="setCommand(value.title, value.command)"> {{value.title}} </button>
+                                    <p>
+                                        Timing: {{value.attr / 1000}} Min.
+                                    </p>
+                                </div>
+                                
+                                <div ng-if="value.timing == 'bool'">
+                                    <button name="send_command" value="sendCommand" ng-disabled="value.checkactive" type="submit"   class="btn btn-success btn-block" ng-click="setCommand(value.title, value.command)"> {{value.title}} </button>
+                                    <p>
+                                        &nbsp;
+                                    </p>
+                                </div>
+                                <div class="progress progress-striped " ng-class="value.checkactive?'active':''">
+                                    <div class="progress-bar  " ng-class="value.checkactive?'progress-bar-warning':'progress-bar-danger'" style="width:100%">{{value.checkactive?'Progress':'Stopped'}}</div>
+                                </div>
+                                <p>
+
+                                 
+                                        {{value.datetime}}
+                                    
+                                </p>
                             </div>
                         </form>
                     </div>

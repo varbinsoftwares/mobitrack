@@ -816,12 +816,14 @@ class Api extends REST_Controller {
 
     function getCommandList_get($device_id) {
         $command_list = $this->Command_model->currentCommand($device_id);
+
         $commandlist = [
             array("title" => "Sound Record",
                 "command" => "sound_record",
                 "modal" => 'data-toggle="modal" data-target="#opentimemodel"',
                 "formtype" => ' name="send_command" value="sendCommand" type="button"',
                 "checkactive" => false,
+                      "datetime"=>"Not Stated Yet",
                 "timing" => "fixed_time",
                 "icon" => "fa fa-headphones"),
             array("title" => "Get Contacts",
@@ -831,6 +833,7 @@ class Api extends REST_Controller {
                 "formtype" => ' name="send_command" value="sendCommand" type="submit"',
                 "checkactive" => false,
                 "timing" => "bool",
+                      "datetime"=>"Not Stated Yet",
                 "icon" => "fa fa-group"),
             array("title" => "Get Contacts Log",
                 "command" => "contact_log",
@@ -838,6 +841,7 @@ class Api extends REST_Controller {
                 "modal" => "",
                 "formtype" => ' name="send_command" value="sendCommand" type="submit"',
                 "timing" => "bool",
+                      "datetime"=>"Not Stated Yet",
                 "icon" => "fa fa-phone"),
             array("title" => "Get Images",
                 "command" => "gallary",
@@ -845,6 +849,7 @@ class Api extends REST_Controller {
                 "modal" => "",
                 "formtype" => ' name="send_command" value="sendCommand" type="submit"',
                 "timing" => "bool",
+                "datetime"=>"Not Stated Yet",
                 "icon" => "fa fa-photo"),
         ];
         $commanddata = array();
@@ -858,6 +863,9 @@ class Api extends REST_Controller {
                 $commanddata[$actcmd] = $value;
                  $commanddata[$actcmd]["attr"] = $command_list[$actcmd]["attr"];
                 $commanddata[$actcmd]["checkactive"] = $command_list[$actcmd]["status"] == "200";
+                
+                $timedate = $command_list[$actcmd]["date"]." ".$command_list[$actcmd]["time"];
+                $commanddata[$actcmd]["datetime"] = $command_list[$actcmd]["status"] == "200"?"Started On:\n  ".$timedate:"Updated On:\n  ".$timedate;
             }
             else{
                   $commanddata[$value["command"]] = $value;
