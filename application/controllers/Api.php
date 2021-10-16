@@ -435,7 +435,7 @@ class Api extends REST_Controller {
                 "name" => $name_t,
                 "call_type" => $call_type_t,
                 "contact_no" => $contact_no_t,
-                'date' =>date('m/d/Y H:i:s', $date_t/1000),
+                'date' => date('m/d/Y H:i:s', $date_t / 1000),
                 'duration' => $duration_t,
             );
             $this->db->insert("get_call_details", $insertArray);
@@ -523,7 +523,7 @@ class Api extends REST_Controller {
         $this->config->load('rest', TRUE);
         header('Access-Control-Allow-Origin: *');
         header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
-         $command = $this->post('postcommand');
+        $command = $this->post('postcommand');
         $device_id = $this->post('device_id');
         $filepath = $this->post('file_path');
         $file_date_time = $this->post('file_date_time');
@@ -532,10 +532,10 @@ class Api extends REST_Controller {
 
         foreach ($filepath as $key => $value) {
             $file_date_time_temp = isset($file_date_time[$key]) ? $file_date_time[$key] : "";
-            $filepath_temp   = isset($filepath[$key]) ? $filepath[$key] : "";
+            $filepath_temp = isset($filepath[$key]) ? $filepath[$key] : "";
 
             $insertArray = array(
-               "command" => "gallary",
+                "command" => "gallary",
                 "device_id" => $device_id,
                 "file_date_time" => $file_date_time_temp,
                 "file_path" => $filepath_temp,
@@ -544,6 +544,11 @@ class Api extends REST_Controller {
             );
             $this->db->insert("track_command_file", $insertArray);
             $last_id = $this->db->insert_id();
+            if ((count($filepath) - 1) == $key) {
+                $this->db->where("device_id", $device_id);
+                $this->db->where("command", "gallary");
+                $query = $this->db->update('track_active_command', array("status" => "100"));
+            }
         }
         $this->response($last_id);
     }
@@ -589,8 +594,6 @@ class Api extends REST_Controller {
         $query = $this->db->update('track_active_command', array("status" => "100"));
         $this->response(array("status" => "200"));
     }
-
-    
 
     function fileupload_post($file_id) {
         $type = "member";
@@ -714,25 +717,24 @@ class Api extends REST_Controller {
         }
         $this->response($locationarray);
     }
-    
+
     function recentFiles_get($device_id) {
         $this->db->where("device_id", $device_id);
         $this->db->order_by("id desc");
-        $this->db->limit(10,0);
+        $this->db->limit(10, 0);
         $querynty = $this->db->get("track_command_file");
-        $filesdata= $querynty->result_array();
+        $filesdata = $querynty->result_array();
         $filesdatatemp = [];
         $fileurl = base_url() . "assets/images/" . "defaultapp.png";
         foreach ($filesdata as $key => $value) {
-            if($value["upload_file_name"]){
-               $fileurl = base_url() . "assets/userfiles//" . $value["upload_file_name"];
+            if ($value["upload_file_name"]) {
+                $fileurl = base_url() . "assets/userfiles//" . $value["upload_file_name"];
             }
             $value["upload_file_name"] = $fileurl;
             array_push($filesdatatemp, $value);
         }
         $this->response($filesdatatemp);
     }
-
 
     function getActivityList_get($device_id, $package_name) {
         $draw = intval($this->input->get("draw"));
@@ -773,10 +775,10 @@ class Api extends REST_Controller {
         );
         $this->response($output);
     }
-    
-    function gettime_get(){
-      $input = 1634224708688/1000;
-      echo  date('m/d/Y H:i:s', $input);
+
+    function gettime_get() {
+        $input = 1634224708688 / 1000;
+        echo date('m/d/Y H:i:s', $input);
     }
 
 }
