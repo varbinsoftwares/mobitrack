@@ -132,7 +132,7 @@ $timingarray = array(
                     <p>{{applist.countdata.get_conects}}</p>	
                 </div>
                 <div class="stats-link">
-                    <a href="<?php echo site_url("Account/getContacts/$device_id");?>">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
+                    <a href="<?php echo site_url("Account/getContacts/$device_id"); ?>">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
                 </div>
             </div>
         </div>
@@ -146,7 +146,7 @@ $timingarray = array(
                     <p>{{applist.countdata.get_call_details}}</p>	
                 </div>
                 <div class="stats-link">
-                    <a href="<?php echo site_url("Account/getCallLog/$device_id");?>">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
+                    <a href="<?php echo site_url("Account/getCallLog/$device_id"); ?>">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
                 </div>
             </div>
         </div>
@@ -200,8 +200,7 @@ $timingarray = array(
                         "modal" => "",
                         "formtype" => ' name="send_command" value="sendCommand" type="submit"',
                         "timing" => "bool", "icon" => "fa fa-phone"),
-               
-                      array("title" => "Get Images", "command" => "gallary",
+                    array("title" => "Get Images", "command" => "gallary",
                         "modal" => "",
                         "formtype" => ' name="send_command" value="sendCommand" type="submit"',
                         "timing" => "bool", "icon" => "fa fa-photo"),
@@ -284,6 +283,24 @@ $timingarray = array(
                 ?>
             </div>
         </div>
+
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="col-md-2 text-center" ng-repeat="(key, value) in applist.commands">
+                        <form action="" method="post">
+                            <div class="controlblock {{value.checkactive?'active':''}}">
+                                <input type="hidden" name="command" value="{{value.command}}">
+                                <input type="hidden" name="timing" value="{{value.timing}}">
+                                <i class="fa fa-circle activebutton {{value.checkactive? 'blink_me' : ''}}"></i>
+                                <div class="iconblock "><i class="{{value.icon}} fa-2x"></i></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-md-7">
                 <div class="">
@@ -401,7 +418,7 @@ $timingarray = array(
                                     <div class="media">
                                         <div class="media-left">
                                             <a href="#">
-                                                <img class="media-object" src="<?php echo  base_url() . "assets/images/" . "sound.jpg";?>" alt="..." style="height: 50px;width:50px ">
+                                                <img class="media-object" src="<?php echo base_url() . "assets/images/" . "sound.jpg"; ?>" alt="..." style="height: 50px;width:50px ">
                                             </a>
                                         </div>
                                         <div class="media-body">
@@ -410,7 +427,7 @@ $timingarray = array(
                                             <div class="">
                                                 <div ng-if="file.downloadfile == '1'" >
                                                     <a class="btn btn-success  btn-sm" ng-if="file.downloadfile == '1'" href="{{file.imageurl}}" target="_blank"><i class="fa fa-eye"></i>   View File</a>
-                                                  
+
                                                 </div>
                                                 <div ng-if="file.downloadfile == '0'" >
                                                     <button class="btn btn-warning   btn-sm" ng-if="file.status == 'none'" ng-click="getFileDownload($index, file.command)" target="_blank">

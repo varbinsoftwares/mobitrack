@@ -852,8 +852,15 @@ class Api extends REST_Controller {
             $checkactive = false;
             $commandattr = array();
             if (isset($command_list[$value["command"]])) {
-                $commanddata[$value["command"]] = $command_list[$value["command"]];
-                $commanddata[$value["command"]]["checkactive"] = $command_list[$value["command"]]["status"] == "200";
+               
+                $actcmd = $value["command"];
+//                 print_r($command_list[$actcmd]["attr"]);
+                $commanddata[$actcmd] = $value;
+                 $commanddata[$actcmd]["attr"] = $command_list[$actcmd]["attr"];
+                $commanddata[$actcmd]["checkactive"] = $command_list[$actcmd]["status"] == "200";
+            }
+            else{
+                  $commanddata[$value["command"]] = $value;
             }
         }
 
