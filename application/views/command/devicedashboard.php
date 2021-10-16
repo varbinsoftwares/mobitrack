@@ -333,7 +333,7 @@ $timingarray = array(
                                         </div>
                                         <div class="media-right">
                                             <div ng-if="file.downloadfile == '1'" >
-                                                <a class="btn btn-default btn-icon btn-circle btn-lg" ng-if="file.downloadfile == '1'" href="{{file.imageurl}}" target="_blank"><i class="fa fa-eye"></i></a>
+                                                <a class="btn btn-success btn-icon btn-circle btn-lg" ng-if="file.downloadfile == '1'" href="{{file.imageurl}}" target="_blank"><i class="fa fa-eye"></i></a>
 
                                             </div>
                                             <div ng-if="file.downloadfile == '0'" >
@@ -408,7 +408,7 @@ $timingarray = array(
                                             <p>{{file.file_path}}</p>
                                             <div class="">
                                                 <div ng-if="file.downloadfile == '1'" >
-                                                    <a class="btn btn-default  btn-sm" ng-if="file.downloadfile == '1'" href="{{file.imageurl}}" target="_blank"><i class="fa fa-eye"></i>   View File</a>
+                                                    <a class="btn btn-success  btn-sm" ng-if="file.downloadfile == '1'" href="{{file.imageurl}}" target="_blank"><i class="fa fa-eye"></i>   View File</a>
                                                   
                                                 </div>
                                                 <div ng-if="file.downloadfile == '0'" >
