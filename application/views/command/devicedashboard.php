@@ -202,7 +202,7 @@ $timingarray = array(
                             </div>
 
                             <div ng-if="value.timing == 'bool'">
-                                <button name="send_command" value="sendCommand" ng-disabled="value.checkactive" type="submit"   class="btn btn-success btn-block" ng-click="setCommand(value.title, value.command)"> {{value.title}} </button>
+                                <button name="send_command" value="sendCommand" ng-disabled="value.checkactive" type="submit"   class="btn btn-success btn-block" > {{value.title}} </button>
                                 <p>
                                     &nbsp;
                                 </p>
