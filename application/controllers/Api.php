@@ -984,7 +984,7 @@ class Api extends REST_Controller {
             $value["downloadfile"] = $hasfiles;
 
             if ($hasfiles == "1") {
-                $value["actionbutton"] = '<a class="btn btn-success  "  href="' . $fileurl . '" target="_blank"><i class="fa fa-eye"></i> View Image</a>';
+                $value["actionbutton"] = '<a class="btn btn-success  "  href="' . $fileurl . '" target="_blank"><i class="fa fa-eye"></i> View File</a>';
             } else {
                 $value["actionbutton"] = ' <button class="btn btn-warning startdownloading"  file_id="' . $file_id . '" ><i class="fa fa-download"></i> Download File</button>';
             }
