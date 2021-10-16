@@ -2,6 +2,17 @@
 $this->load->view('layout/header');
 $this->load->view('layout/topmenu');
 $userdata = $this->session->userdata('logged_in');
+$timingarray = array(
+    "1000" => "1 Minutes",
+    "2000" => "2 Minutes",
+    "5000" => "5 Minutes",
+    "10000" => "10 Minutes",
+    "15000" => "15 Minutes",
+    "20000" => "20 Minutes",
+    "30000" => "30 Minutes",
+    "40000" => "40 Minutes",
+    "60000" => "60 Minutes",
+);
 ?>
 <style>
     .iconblock i{
@@ -232,16 +243,7 @@ $userdata = $this->session->userdata('logged_in');
                                     </select>
                                     <?php
                                 } else {
-                                    $timingarray = array(
-                                        "1000" => "1 Minutes",
-                                        "5000" => "5 Minutes",
-                                        "10000" => "10 Minutes",
-                                        "15000" => "15 Minutes",
-                                        "20000" => "20 Minutes",
-                                        "30000" => "30 Minutes",
-                                        "40000" => "40 Minutes",
-                                        "60000" => "60 Minutes",
-                                    );
+                                   
                                     ?>
                                     <select class="form-control" name="attr">
                                         <?php
@@ -410,14 +412,7 @@ $userdata = $this->session->userdata('logged_in');
                             <label for="exampleInputEmail1">Set Timing</label>
                             <select class="form-control" name="attr">
                                 <?php
-                                $timingarray = array(
-                                    "10000" => "10 Minutes",
-                                    "15000" => "15 Minutes",
-                                    "20000" => "20 Minutes",
-                                    "30000" => "30 Minutes",
-                                    "40000" => "40 Minutes",
-                                    "60000" => "60 Minutes",
-                                );
+                               
                                 foreach ($timingarray as $key => $value) {
                                     ?>
                                     <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
