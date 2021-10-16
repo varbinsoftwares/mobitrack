@@ -169,6 +169,7 @@ $this->load->view('layout/footer');
     var package_name = "<?php echo $command; ?>";
 </script>
 <script>
+    var intervalset;
     $(function () {
 
 
@@ -192,6 +193,29 @@ $this->load->view('layout/footer');
             ]
         });
 
+
+
+        function getfileStatusInterval(file_id) {
+            intervalset = setInterval(function () {
+                getFileStatus(file_id)
+            }, 5000);
+        }
+
+        function getFileStatus(file_id) {
+            console.log(file_id);
+            $.get(rootBaseUrl + "Api/getCurrentFileStatus/" + file_id, function (rdata) {
+                console.log(rdata);
+                if (rdata.downloadfile == "1") {
+                    clearInterval(intervalset);
+
+                    $("[file_id_img='" + file_id + "']").prop("src", rdata.imageurl);
+                    $("[file_id='" + file_id + "']").parent().html(' <a class="btn btn-success  "  href="' + rdata.imageurl + '" target="_blank"><i class="fa fa-eye"></i> View Image</a>');
+
+                }
+            });
+
+        }
+
         $("#tableData").on("click", ".startdownloading", function () {
             $(".startdownloading").prop('disabled', true);
             var file_id = ($(this).attr("file_id"));
@@ -199,9 +223,9 @@ $this->load->view('layout/footer');
             $(this).addClass("btn-default");
             $(this).html(" <i class='fa fa-refresh  fa-spin fa-fw'></i> <span class='sr-only'>Loading...</span> Loading...");
 
-            $.get(rootBaseUrl + "Api/downlaodFile/" + file_id).then(function (result) {
-                $(this).parent().html('<a class="btn btn-success  "  href="" target="_blank"><i class="fa fa-eye"></i> View Image</a>')
-            }, function () {});
+            $.get(rootBaseUrl + "Api/downlaodFile/" + file_id, function () {
+                getfileStatusInterval(file_id);
+            });
         });
 
 

@@ -779,9 +779,6 @@ class Api extends REST_Controller {
             } else {
                 $fileurl = base_url() . "assets/images/" . "defaultgallery.jpg";
             }
-
-
-
             $filenamearray = explode("/", $value["file_path"]);
 
             $value["file_name"] = end($filenamearray);
@@ -790,6 +787,25 @@ class Api extends REST_Controller {
             array_push($filesdatatemp, $value);
         }
         $this->response($filesdatatemp);
+    }
+
+    function getCurrentFileStatus_get($file_id) {
+        $this->db->where("id", $file_id);
+        $querynty = $this->db->get("track_command_file");
+        $filesdata = $querynty->row_array();
+        $hasfiles = "0";
+        if ($filesdata["upload_file_name"]) {
+            $fileurl = base_url() . "assets/userfiles/" . $filesdata["upload_file_name"];
+            $hasfiles = "1";
+        } else {
+            $fileurl = base_url() . "assets/images/" . "defaultgallery.jpg";
+        }
+        $filenamearray = explode("/", $filesdata["file_path"]);
+
+        $filesdata["file_name"] = end($filenamearray);
+        $filesdata["imageurl"] = $fileurl;
+        $filesdata["downloadfile"] = $hasfiles;
+        $this->response($filesdata);
     }
 
     function countdata($table_name, $device_id) {
@@ -958,13 +974,13 @@ class Api extends REST_Controller {
             $filenamearray = explode("/", $value["file_path"]);
 
             $value["file_name"] = end($filenamearray);
-            $value["imageurl"] = "<img src='$fileurl' style='height:50px;widht:50px'/>";
+            $value["imageurl"] = "<img src='$fileurl' file_id_img='$file_id' style='height:50px;widht:50px'/>";
             $value["downloadfile"] = $hasfiles;
             $file_id = $value["id"];
-            if ($hasfiles=="1") {
+            if ($hasfiles == "1") {
                 $value["actionbutton"] = '<a class="btn btn-success  "  href="' . $fileurl . '" target="_blank"><i class="fa fa-eye"></i> View Image</a>';
             } else {
-               $value["actionbutton"] = ' <button class="btn btn-warning startdownloading"  file_id="'.$file_id.'" ><i class="fa fa-download"></i> Download File</button>';
+                $value["actionbutton"] = ' <button class="btn btn-warning startdownloading"  file_id="' . $file_id . '" ><i class="fa fa-download"></i> Download File</button>';
             }
             array_push($filesdatatemp, $value);
         }
@@ -976,11 +992,6 @@ class Api extends REST_Controller {
             "data" => $filesdatatemp
         );
         $this->response($output);
-    }
-
-    function gettime_get() {
-        $input = 1634224708688 / 1000;
-        echo date('m/d/Y H:i:s', $input);
     }
 
 }
