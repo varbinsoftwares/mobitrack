@@ -222,6 +222,33 @@ class Command extends CI_Controller {
         $this->load->view('command/activitylist', $data);
     }
 
+    function appFilesList($device_id, $command) {
+
+
+        $data = array();
+        $this->db->select("name, contact_no, brand, model_no, device_id");
+        $this->db->where("device_id", $device_id);
+
+        $query = $this->db->get('get_conects_person');
+        $contactperson = $query->row_array();
+
+
+        $data["device_id"] = $device_id;
+        $data["command"] = $command;
+        $data['contactperson'] = $contactperson;
+
+        $app_info = array(
+            "image" => base_url() . "assets/images/" . "defaultgallery.jpg", 
+            "title" => "Device Images",
+            "description"=>"If you want to see the image you have to download it first"
+            );
+        $data["app_info"] = $app_info;
+
+
+
+        $this->load->view('command/filelist', $data);
+    }
+
     public function ApplicationSetting() {
         $data = array();
 

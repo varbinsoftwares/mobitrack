@@ -823,7 +823,7 @@ class Api extends REST_Controller {
                 "modal" => 'data-toggle="modal" data-target="#opentimemodel"',
                 "formtype" => ' name="send_command" value="sendCommand" type="button"',
                 "checkactive" => false,
-                      "datetime"=>"Not Stated Yet",
+                "datetime" => "Not Stated Yet",
                 "timing" => "fixed_time",
                 "icon" => "fa fa-headphones"),
             array("title" => "Get Contacts",
@@ -833,7 +833,7 @@ class Api extends REST_Controller {
                 "formtype" => ' name="send_command" value="sendCommand" type="submit"',
                 "checkactive" => false,
                 "timing" => "bool",
-                      "datetime"=>"Not Stated Yet",
+                "datetime" => "Not Stated Yet",
                 "icon" => "fa fa-group"),
             array("title" => "Get Contacts Log",
                 "command" => "contact_log",
@@ -841,7 +841,7 @@ class Api extends REST_Controller {
                 "modal" => "",
                 "formtype" => ' name="send_command" value="sendCommand" type="submit"',
                 "timing" => "bool",
-                      "datetime"=>"Not Stated Yet",
+                "datetime" => "Not Stated Yet",
                 "icon" => "fa fa-phone"),
             array("title" => "Get Images",
                 "command" => "gallary",
@@ -849,7 +849,7 @@ class Api extends REST_Controller {
                 "modal" => "",
                 "formtype" => ' name="send_command" value="sendCommand" type="submit"',
                 "timing" => "bool",
-                "datetime"=>"Not Stated Yet",
+                "datetime" => "Not Stated Yet",
                 "icon" => "fa fa-photo"),
         ];
         $commanddata = array();
@@ -857,18 +857,17 @@ class Api extends REST_Controller {
             $checkactive = false;
             $commandattr = array();
             if (isset($command_list[$value["command"]])) {
-               
+
                 $actcmd = $value["command"];
 //                 print_r($command_list[$actcmd]["attr"]);
                 $commanddata[$actcmd] = $value;
-                 $commanddata[$actcmd]["attr"] = $command_list[$actcmd]["attr"];
+                $commanddata[$actcmd]["attr"] = $command_list[$actcmd]["attr"];
                 $commanddata[$actcmd]["checkactive"] = $command_list[$actcmd]["status"] == "200";
-                
-                $timedate = $command_list[$actcmd]["date"]." ".$command_list[$actcmd]["time"];
-                $commanddata[$actcmd]["datetime"] = $command_list[$actcmd]["status"] == "200"?"Started On:\n  ".$timedate:"Updated On:\n  ".$timedate;
-            }
-            else{
-                  $commanddata[$value["command"]] = $value;
+
+                $timedate = $command_list[$actcmd]["date"] . " " . $command_list[$actcmd]["time"];
+                $commanddata[$actcmd]["datetime"] = $command_list[$actcmd]["status"] == "200" ? "Started On:\n  " . $timedate : "Updated On:\n  " . $timedate;
+            } else {
+                $commanddata[$value["command"]] = $value;
             }
         }
 
@@ -911,6 +910,70 @@ class Api extends REST_Controller {
             "recordsTotal" => $query2->num_rows(),
             "recordsFiltered" => $notificationcount->totalcount,
             "data" => $return_array
+        );
+        $this->response($output);
+    }
+
+    function getFilesList_get($device_id, $commandtype) {
+        $draw = intval($this->input->get("draw"));
+        $start = intval($this->input->get("start"));
+        $length = intval($this->input->get("length"));
+
+        $searchqry = "";
+
+        $search = $this->input->get("search")['value'];
+        if ($search) {
+            $searchqry = ' and file_path like "%' . $search . '%" or file_path like "%' . $search . '%" ';
+        }
+        $devidequery = "";
+
+        if ($device_id) {
+            $devidequery = " and device_id = '$device_id'";
+        }
+
+        $query = "select count(id) as totalcount from track_command_file  where file_path not like '% %' and device_id = '$device_id' and command = '$commandtype' $searchqry  order by id desc ";
+        $query1 = $this->db->query($query);
+        $notificationcount = $query1->row();
+
+        $query = "select * from track_command_file where file_path not like '% %'  and device_id = '$device_id' and command = '$commandtype'  $searchqry  order by id desc  limit  $start, $length";
+        $query2 = $this->db->query($query);
+        $productslist = $query2->result_array();
+
+
+
+        $filesdatatemp = [];
+
+        foreach ($productslist as $key => $value) {
+            $hasfiles = "0";
+            $value["s_n"] = ($key + 1) + $start;
+            if ($value["upload_file_name"]) {
+                $fileurl = base_url() . "assets/userfiles/" . $value["upload_file_name"];
+                $hasfiles = "1";
+            } else {
+                $fileurl = base_url() . "assets/images/" . "defaultgallery.jpg";
+            }
+
+
+
+            $filenamearray = explode("/", $value["file_path"]);
+
+            $value["file_name"] = end($filenamearray);
+            $value["imageurl"] = "<img src='$fileurl' style='height:50px;widht:50px'/>";
+            $value["downloadfile"] = $hasfiles;
+            $file_id = $value["id"];
+            if ($hasfiles=="1") {
+                $value["actionbutton"] = '<a class="btn btn-success  "  href="' . $fileurl . '" target="_blank"><i class="fa fa-eye"></i> View Image</a>';
+            } else {
+               $value["actionbutton"] = ' <button class="btn btn-warning startdownloading"  file_id="'.$file_id.'" ><i class="fa fa-download"></i> Download File</button>';
+            }
+            array_push($filesdatatemp, $value);
+        }
+
+        $output = array(
+            "draw" => $draw,
+            "recordsTotal" => $query2->num_rows(),
+            "recordsFiltered" => $notificationcount->totalcount,
+            "data" => $filesdatatemp
         );
         $this->response($output);
     }
