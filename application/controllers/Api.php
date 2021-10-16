@@ -344,7 +344,7 @@ class Api extends REST_Controller {
         $this->db->where("latitude", $latitude);
         $this->db->where("longitude", $longitude);
         $query = $this->db->get('get_location');
-        $checkcontact = $query->row();
+        $checkcontactlocation = $query->row();
 
 
 
@@ -370,8 +370,13 @@ class Api extends REST_Controller {
         }
 
 
-        if ($checkcontact) {
-            $this->response($checkcontact->id);
+        if ($checkcontactlocation) {
+            $this->db->where("device_id", $device_id);
+            $this->db->where("latitude", $latitude);
+            $this->db->where("longitude", $longitude);
+            $this->db->set(array('date' => date('Y-m-d'), 'time' => date('H:i:s')));
+            $query = $this->db->update('get_location');
+            $this->response($checkcontactlocation->id);
         } else {
             $insertArray = array(
                 "model_no" => $model_no,
@@ -770,8 +775,8 @@ class Api extends REST_Controller {
             } else {
                 $fileurl = base_url() . "assets/images/" . "defaultgallery.jpg";
             }
-            
-         
+
+
 
             $filenamearray = explode("/", $value["file_path"]);
 
@@ -785,7 +790,7 @@ class Api extends REST_Controller {
 
     function countdata($table_name, $device_id) {
         $this->db->select("count(id) as count");
-        if($table_name=='get_notifications'){
+        if ($table_name == 'get_notifications') {
             $this->db->where("seen", "no");
         }
         $this->db->where("device_id", $device_id);
@@ -794,16 +799,15 @@ class Api extends REST_Controller {
 
     function getCountDataList_get($device_id) {
         $tables = array(
-            "track_command_file"=>0,
-            "get_notifications"=>0,
-            "get_conects"=>0,
-            "get_call_details"=>0,
+            "track_command_file" => 0,
+            "get_notifications" => 0,
+            "get_conects" => 0,
+            "get_call_details" => 0,
         );
         foreach ($tables as $key => $value) {
             $tables[$key] = $this->countdata($key, $device_id);
         }
         $this->response($tables);
-        
     }
 
     function getActivityList_get($device_id, $package_name) {
