@@ -725,10 +725,13 @@ class Api extends REST_Controller {
         $querynty = $this->db->get("track_command_file");
         $filesdata = $querynty->result_array();
         $filesdatatemp = [];
-        $fileurl = base_url() . "assets/images/" . "defaultapp.png";
+
         foreach ($filesdata as $key => $value) {
+
             if ($value["upload_file_name"]) {
                 $fileurl = base_url() . "assets/userfiles//" . $value["upload_file_name"];
+            } else {
+                $fileurl = base_url() . "assets/images/" . "defaultapp.png";
             }
             $value["upload_file_name"] = $fileurl;
             array_push($filesdatatemp, $value);
