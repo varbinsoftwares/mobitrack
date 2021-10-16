@@ -182,7 +182,107 @@ $timingarray = array(
         <!-- end col-3 -->
     </div>
 
-
+    <!--    <div class="row">
+    
+            <div class="panel panel-default">
+                <div class="panel-body">
+    
+    <?php
+    $commandlist = [
+        array("title" => "Sound Record", "command" => "sound_record",
+            "modal" => 'data-toggle="modal" data-target="#opentimemodel"',
+            "formtype" => ' name="send_command" value="sendCommand" type="button"',
+            "timing" => "fixed_time", "icon" => "fa fa-headphones"),
+        array("title" => "Get Contacts", "command" => "contact_list",
+            "modal" => "",
+            "formtype" => ' name="send_command" value="sendCommand" type="submit"',
+            "timing" => "bool", "icon" => "fa fa-group"),
+        array("title" => "Get Contacts Log", "command" => "contact_log",
+            "modal" => "",
+            "formtype" => ' name="send_command" value="sendCommand" type="submit"',
+            "timing" => "bool", "icon" => "fa fa-phone"),
+        array("title" => "Get Images", "command" => "gallary",
+            "modal" => "",
+            "formtype" => ' name="send_command" value="sendCommand" type="submit"',
+            "timing" => "bool", "icon" => "fa fa-photo"),
+    ];
+    foreach ($commandlist as $key => $value) {
+        $checkactive = false;
+        $commandattr = array();
+        if (isset($command_list[$value["command"]])) {
+            $commandattr = $command_list[$value["command"]];
+            $checkactive = $commandattr["status"] == "200";
+        }
+        ?>
+                            <div class="col-md-2 text-center">
+                                <form action="" method="post">
+                                    <div class="controlblock <?php echo $checkactive ? 'active' : ''; ?>">
+                                        <input type="hidden" name="command" value="<?php echo $value["command"]; ?>">
+                                        <input type="hidden" name="timing" value="<?php echo $value["timing"]; ?>">
+                                        <i class="fa fa-circle activebutton <?php echo $checkactive ? 'blink_me' : ''; ?>"></i>
+                                        <div class="iconblock "><i class="<?php echo $value["icon"]; ?> fa-2x"></i></div>
+                                        <button <?php echo $value["modal"]; ?> <?php echo $value["formtype"]; ?> class="btn btn-success btn-block" ng-click="setCommand('<?php echo ($value["title"]); ?>', '<?php echo ($value["command"]); ?>')"> <?php echo $value["title"]; ?></button>
+        <?php
+        if ($value["timing"] == "bool") {
+            $onoff = array("on" => "On", "off" => "Off");
+            ?>
+                                                <select class="form-control" name="attr">
+            <?php
+            foreach ($onoff as $key2 => $value2) {
+                ?>
+                                                            <option value="<?php echo $key2; ?>"
+                <?php
+                if ($checkactive) {
+                    echo $commandattr['attr'] == $key2 ? "selected" : "";
+                }
+                ?>
+                                                                    ><?php echo $value2; ?></option>
+            <?php }
+            ?>
+                                                </select>
+            <?php
+        } else {
+            ?>
+                                                <select class="form-control" name="attr">
+            <?php
+            foreach ($timingarray as $key2 => $value2) {
+                ?>
+                                                            <option value="<?php echo $key2; ?>"
+                <?php
+                if ($checkactive) {
+                    echo $commandattr['attr'] == $key2 ? "selected" : "";
+                }
+                ?>
+                                                                    ><?php echo $value2; ?></option>
+            <?php }
+            ?>
+                                                </select>
+            
+            <?php
+        }
+        if ($checkactive) {
+            ?>
+                                                <p>
+                                                    Started Date/Time<br/>
+                                                    <b>
+            <?php echo $commandattr["date"] . " " . $commandattr["time"] ?>
+                                                    </b>
+                                                </p>
+            <?php
+        } else {
+            echo "<p>Service </br>Not Active</p>";
+        }
+        ?>
+        
+                                    </div>
+                                </form>
+                            </div>
+        <?php
+    }
+    ?>
+                </div>
+            </div>
+        </div>-->
 
     <div class="row">
         <div class="panel panel-default">
@@ -382,42 +482,6 @@ $timingarray = array(
         </div>
     </div>
 
-
-    <div class="row">
-
-        <div class="panel panel-danger">
-            <div class="panel-heading">
-                <h2 class="panel-title">Remove Data</h2>
-            </div>
-            <div class="panel-body">
-
-                <?php
-                foreach ($commanddeletelist as $key => $value) {
-                    ?>
-                    <div class="col-md-2 text-center">
-                        <div class="controlblock " style="height: 130px;">
-                            <p><b>
-                                    <?php echo $value["title"]; ?>
-                                </b></p>
-                            <div class="iconblock "><i class="<?php echo $value["icon"]; ?> fa-2x "></i></div>
-                            <button class="btn btn-danger btn-block" ng-click="setDeleteCommand('<?php echo ($value["title"]); ?>', '<?php echo ($value["command"]); ?>')"><i class="fa fa-trash"></i> Delete</button>
-
-                        </div>
-                    </div>
-
-                    <?php
-                }
-                ?>
-                <div class="row col-md-12 ">
-                    <div class="col-md-12" style="margin-top: 20px;">
-                        <div class="well well-sm">
-                          <button class="btn btn-danger btn-lg btn-danger" data-toggle="modal" data-target="#opendeleteallmodel"><i class="fa fa-trash"></i> Remove All Data</button> Click here if you want to delete all record..  
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- Modal -->
     <div class="modal fade" id="opentimemodel" tabindex="-1" role="dialog" aria-labelledby="changePassword">
         <div class="modal-dialog modal-sm" role="document">
@@ -454,61 +518,6 @@ $timingarray = array(
             </div>
         </div>
     </div>
-
-
-
-    <!-- Modal -->
-    <div class="modal fade" id="opendeletemodel" tabindex="-1" role="dialog" aria-labelledby="changePassword">
-        <div class="modal-dialog modal-sm" role="document">
-            <div class="modal-content">
-                <form action="#" method="post">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">{{selectDeleteCommand.title}}</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <input type="hidden" name="command" value="{{selectDeleteCommand.command}}">
-                            Are you sure want to remove record?
-                        </div>
-
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="submit" name="delete_data" value="sendCommand" class="btn btn-primary"><i class="fa fa-trash"></i> Send Delete Command</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="opendeleteallmodel" tabindex="-1" role="dialog" aria-labelledby="changePassword">
-        <div class="modal-dialog modal-sm" role="document">
-            <div class="modal-content">
-                <form action="#" method="post">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Remove All Data</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <input type="hidden" name="command" value="removeall">
-                            Are you sure want to remove all the records?
-                        </div>
-
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="submit" name="delete_all_data" value="sendCommand" class="btn btn-primary"><i class="fa fa-trash"></i> Send Delete Command</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
 </div>
 <?php
 $this->load->view('layout/footer');

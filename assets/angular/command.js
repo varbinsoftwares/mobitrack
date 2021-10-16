@@ -6,6 +6,14 @@ Admin.controller('commandControlDashboard', function ($scope, $http, $timeout, $
         $scope.selectCommand.title = title;
         $("#opentimemodel").modal("show");
     }
+    
+    $scope.selectDeleteCommand = {"command": "", "title": ""};
+    $scope.setDeleteCommand = function (title, command) {
+        console.log(title, command);
+        $scope.selectDeleteCommand.command = command;
+        $scope.selectDeleteCommand.title = title;
+        $("#opendeletemodel").modal("show");
+    }
 
 
     $scope.applist = {

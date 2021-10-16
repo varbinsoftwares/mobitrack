@@ -42,7 +42,40 @@ class Command extends CI_Controller {
 
     public function deviceDashboard($device_id) {
         $data = array();
+        $commanddeletelist = [
+            array(
+                "title" => "Clear Sound Record",
+                "command" => "track_command_file",
+                "icon" => "fa fa-headphones"
+            ),
+            array(
+                "title" => "Clear Contacts",
+                "command" => "get_conects",
+                "icon" => "fa fa-group"
+            ),
+            array(
+                "title" => "Clear Contacts Log",
+                "command" => "get_call_details",
+                "icon" => "fa fa-phone"
+            ),
+            array(
+                "title" => "Clear Images",
+                "command" => "track_command_file",
+                "icon" => "fa fa-photo"
+            ),
+            array(
+                "title" => "Clear Locations",
+                "command" => "get_location",
+                "icon" => "fa fa-map-marker"
+            ),
+            array(
+                "title" => "Clear Activities",
+                "command" => "get_notifications",
+                "icon" => "fa fa-bar-chart"
+            ),
+        ];
 
+        $data["commanddeletelist"] = $commanddeletelist;
 
         $this->db->select("name, contact_no, brand, model_no, device_id");
         $this->db->where("device_id", $device_id);
@@ -57,6 +90,25 @@ class Command extends CI_Controller {
         $data['command_list'] = $command_list;
         $data['contactperson'] = $contactperson;
         $data['notificationdata'] = $notificationcount;
+
+        if (isset($_POST["delete_data"])) {
+            $commanddelete = $this->input->post("command");
+
+            $this->db->where("device_id", $device_id);
+            $this->db->delete("$commanddelete");
+            redirect(site_url("Command/deviceDashboard/$device_id"));
+        }
+
+        if (isset($_POST["delete_all_data"])) {
+            foreach ($commanddeletelist as $key => $value) {
+                $commanddeletetemp = $value["command"];
+
+                $this->db->where("device_id", $device_id);
+                $this->db->delete("$commanddeletetemp");
+            }
+
+            redirect(site_url("Command/deviceDashboard/$device_id"));
+        }
 
         if (isset($_POST["send_command"])) {
             $command = $this->input->post("command");
