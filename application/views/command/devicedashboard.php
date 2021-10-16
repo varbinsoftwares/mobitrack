@@ -22,8 +22,8 @@ $timingarray = array(
     .controlblock{
         border: 3px solid #d9e0e7;
         padding: 5px;
-           padding: 5px;
-    height: 208px;
+        padding: 5px;
+        height: 208px;
     }
     .controlblock.active{
         border: 3px solid green;
@@ -282,241 +282,242 @@ $timingarray = array(
                 ?>
             </div>
         </div>
+    </div>-->
 
-        <div class="row">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="col-md-2 text-center" ng-repeat="(key, value) in applist.commands">
-                        <form action="" method="post">
-                            <div class="controlblock {{value.checkactive?'active':''}}">
-                                <input type="hidden" name="command" value="{{value.command}}">
-                                <input type="hidden" name="timing" value="{{value.timing}}">
-                                <i class="fa fa-circle activebutton {{value.checkactive? 'blink_me' : ''}}"></i>
-                                <div class="iconblock "><i class="{{value.icon}} fa-2x"></i></div>
-                                <div ng-if="value.timing == 'fixed_time'">
-                                    <button type="button" data-toggle="modal" ng-disabled="value.checkactive" data-target="#opentimemodel"   class="btn btn-success btn-block" ng-click="setCommand(value.title, value.command)"> {{value.title}} </button>
-                                    <p>
-                                        Timing: {{value.attr / 1000}} Min.
-                                    </p>
-                                </div>
-                                
-                                <div ng-if="value.timing == 'bool'">
-                                    <button name="send_command" value="sendCommand" ng-disabled="value.checkactive" type="submit"   class="btn btn-success btn-block" ng-click="setCommand(value.title, value.command)"> {{value.title}} </button>
-                                    <p>
-                                        &nbsp;
-                                    </p>
-                                </div>
-                                <div class="progress progress-striped " ng-class="value.checkactive?'active':''">
-                                    <div class="progress-bar  " ng-class="value.checkactive?'progress-bar-warning':'progress-bar-danger'" style="width:100%">{{value.checkactive?'Progress':'Stopped'}}</div>
-                                </div>
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="col-md-2 text-center" ng-repeat="(key, value) in applist.commands">
+                    <form action="" method="post">
+                        <div class="controlblock {{value.checkactive?'active':''}}">
+                            <input type="hidden" name="command" value="{{value.command}}">
+                            <input type="hidden" name="timing" value="{{value.timing}}">
+                            <i class="fa fa-circle activebutton {{value.checkactive? 'blink_me' : ''}}"></i>
+                            <div class="iconblock "><i class="{{value.icon}} fa-2x"></i></div>
+                            <div ng-if="value.timing == 'fixed_time'">
+                                <button type="button" data-toggle="modal" ng-disabled="value.checkactive" data-target="#opentimemodel"   class="btn btn-success btn-block" ng-click="setCommand(value.title, value.command)"> {{value.title}} </button>
                                 <p>
-
-                                 
-                                        {{value.datetime}}
-                                    
+                                    Timing: {{value.attr / 1000}} Min.
                                 </p>
                             </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <div class="row">
-            <div class="col-md-7">
-                <div class="">
-
-                    <div class="panel panel-inverse">
-                        <div class="panel-heading">
-                            <h2 class="panel-title">Active Applications</h2>
-                        </div>
-                        <div class="panel-body">
-                            <div class="row">
-
-                                <div class="col-md-3  text-center" ng-repeat="app in applist.list">
-                                    <a href="<?php echo site_url("Command/appActivity/$device_id/"); ?>{{app.app_info.package_name}}" class="packagename" >
-                                        <span class="badge badge-inverse m-l-3">{{app.counter}}</span>
-                                        <div class="text-center ">
-                                            <img src="{{app.app_info.image}}" style="height:50px;width:50px;">
-                                        </div> 
-
-                                        <span class="hidden-xs m-l-3 packagename-text text-uppercase" title="{{app.app_info.title}}" >
-                                            {{app.app_info.title}}
-                                        </span>
-                                        <small class="hidden-xs m-l-3  text-uppercase" title="{{app.app_info.package_name}}">
-                                            {{app.app_info.package_name}}
-                                        </small>
-                                    </a>
-                                </div>
-
+                            <div ng-if="value.timing == 'bool'">
+                                <button name="send_command" value="sendCommand" ng-disabled="value.checkactive" type="submit"   class="btn btn-success btn-block" ng-click="setCommand(value.title, value.command)"> {{value.title}} </button>
+                                <p>
+                                    &nbsp;
+                                </p>
                             </div>
+                            <div class="progress progress-striped " ng-class="value.checkactive ? 'active' : ''">
+                                <div class="progress-bar  " ng-class="value.checkactive ? 'progress-bar-warning' : 'progress-bar-danger'" style="width:100%">{{value.checkactive?'Progress':'Stopped'}}</div>
+                            </div>
+                            <p>
+
+
+                                {{value.datetime}}
+
+                            </p>
                         </div>
-                    </div>
-                    <div class="panel panel-inverse">
-                        <div class="panel-heading">
-                            <h2 class="panel-title">Recent Files</h2>
-                        </div>
-                        <div class="panel-body">
-                            <ul class="media-list media-list-with-divider media-messaging">
-                                <li class="media media-sm" ng-repeat="file in applist.recentfiles">
-
-                                    <div class="media">
-                                        <div class="media-left">
-                                            <a href="#">
-                                                <img class="media-object" src="{{file.imageurl}}" alt="..." style="height: 50px;width:50px ">
-                                            </a>
-                                        </div>
-                                        <div class="media-body">
-                                            <p class="media-heading"><b>{{file.file_name}}</b></p>
-                                            <p>{{file.file_path}}</p>
-                                        </div>
-                                        <div class="media-right">
-                                            <div ng-if="file.downloadfile == '1'" >
-                                                <a class="btn btn-success btn-icon btn-circle btn-lg" ng-if="file.downloadfile == '1'" href="{{file.imageurl}}" target="_blank"><i class="fa fa-eye"></i></a>
-
-                                            </div>
-                                            <div ng-if="file.downloadfile == '0'" >
-                                                <button class="btn btn-warning btn-icon btn-circle btn-lg" ng-if="file.status == 'none'" ng-click="getFileDownload($index, file.command)" target="_blank">
-                                                    <i class="fa fa-download"></i>
-                                                </button>
-                                                <button class="btn btn-warning btn-icon btn-circle btn-lg" ng-if="file.status == 'download'"  href="">
-                                                    <i class="fa fa-refresh  fa-spin fa-fw"></i>
-                                                    <span class="sr-only">Loading...</span>
-                                                </button>
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-                                </li>
-
-                            </ul>
-                        </div>
-                    </div>
+                    </form>
                 </div>
-            </div>
-            <div class="col-md-5">
-                <div class="">
-                    <div class="panel panel-inverse">
-                        <div class="panel-heading">
-                            <h2 class="panel-title">Recent Location (Update On: {{applist.location.datetime}})</h2>
-                        </div>
-                        <div class="panel-body">
-                            <div id="locationframdata"></div>
-
-                        </div>
-                    </div>
-                    <div class="panel panel-inverse">
-                        <div class="panel-heading">
-                            <h2 class="panel-title">Recent Activity</h2>
-                        </div>
-                        <div class="panel-body">
-                            <ul class="media-list">
-                                <li class="media media-sm" ng-repeat="notify in applist.notifications">
-                                    <a class="media-left" href="javascript:;">
-                                        <img src="{{notify.app_info.image}}" alt="" class="media-object rounded-corner">
-                                    </a>
-                                    <div class="media-body">
-                                        <h4 class="media-heading" style="font-size: 15px">{{notify.notification_title}}</h4>
-                                        <p>
-                                            {{notify.notification_body}}     
-                                        </p>
-                                    </div>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="panel panel-inverse">
-                        <div class="panel-heading">
-                            <h2 class="panel-title">Recent Record Sound</h2>
-                        </div>
-                        <div class="panel-body">
-                            <ul class="media-list media-list-with-divider media-messaging">
-                                <li class="media media-sm" ng-repeat="file in applist.soundfiles">
-
-                                    <div class="media">
-                                        <div class="media-left">
-                                            <a href="#">
-                                                <img class="media-object" src="<?php echo base_url() . "assets/images/" . "sound.jpg"; ?>" alt="..." style="height: 50px;width:50px ">
-                                            </a>
-                                        </div>
-                                        <div class="media-body">
-                                            <p class="media-heading"><b>{{file.file_name}}</b></p>
-                                            <p>{{file.file_path}}</p>
-                                            <div class="">
-                                                <div ng-if="file.downloadfile == '1'" >
-                                                    <a class="btn btn-success  btn-sm" ng-if="file.downloadfile == '1'" href="{{file.imageurl}}" target="_blank"><i class="fa fa-eye"></i>   View File</a>
-
-                                                </div>
-                                                <div ng-if="file.downloadfile == '0'" >
-                                                    <button class="btn btn-warning   btn-sm" ng-if="file.status == 'none'" ng-click="getFileDownload($index, file.command)" target="_blank">
-                                                        <i class="fa fa-download"></i> Download File
-                                                    </button>
-                                                    <button class="btn btn-warning   btn-ng" ng-if="file.status == 'download'"  href="">
-                                                        <i class="fa fa-refresh  fa-spin fa-fw"></i>
-                                                        <span class="sr-only">Loading...</span>
-                                                        Loading...
-                                                    </button>
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                </li>
-
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-8">
-                <div class="row">
-
-                </div>
-
-            </div>
-        </div>
-    </div>-->
-    <!-- Modal -->
-    <div class="modal fade" id="opentimemodel" tabindex="-1" role="dialog" aria-labelledby="changePassword">
-        <div class="modal-dialog modal-sm" role="document">
-            <div class="modal-content">
-                <form action="#" method="post">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">{{selectCommand.title}}</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <input type="hidden" name="command" value="{{selectCommand.command}}">
-                            <input type="hidden" name="timing" value="fixed_time">
-                            <label for="exampleInputEmail1">Set Timing</label>
-                            <select class="form-control" name="attr">
-                                <?php
-                                foreach ($timingarray as $key => $value) {
-                                    ?>
-                                    <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
-                                <?php }
-                                ?>
-                            </select>
-                        </div>
-
-                    </div>
-
-
-                    <div class="modal-footer">
-                        <button type="submit" name="send_command" value="sendCommand" class="btn btn-primary">Send Command</button>
-
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                </form>
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-md-7">
+            <div class="">
+
+                <div class="panel panel-inverse">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Active Applications</h2>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+
+                            <div class="col-md-3  text-center" ng-repeat="app in applist.list">
+                                <a href="<?php echo site_url("Command/appActivity/$device_id/"); ?>{{app.app_info.package_name}}" class="packagename" >
+                                    <span class="badge badge-inverse m-l-3">{{app.counter}}</span>
+                                    <div class="text-center ">
+                                        <img src="{{app.app_info.image}}" style="height:50px;width:50px;">
+                                    </div> 
+
+                                    <span class="hidden-xs m-l-3 packagename-text text-uppercase" title="{{app.app_info.title}}" >
+                                        {{app.app_info.title}}
+                                    </span>
+                                    <small class="hidden-xs m-l-3  text-uppercase" title="{{app.app_info.package_name}}">
+                                        {{app.app_info.package_name}}
+                                    </small>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-inverse">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Recent Files</h2>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="media-list media-list-with-divider media-messaging">
+                            <li class="media media-sm" ng-repeat="file in applist.recentfiles">
+
+                                <div class="media">
+                                    <div class="media-left">
+                                        <a href="#">
+                                            <img class="media-object" src="{{file.imageurl}}" alt="..." style="height: 50px;width:50px ">
+                                        </a>
+                                    </div>
+                                    <div class="media-body">
+                                        <p class="media-heading"><b>{{file.file_name}}</b></p>
+                                        <p>{{file.file_path}}</p>
+                                    </div>
+                                    <div class="media-right">
+                                        <div ng-if="file.downloadfile == '1'" >
+                                            <a class="btn btn-success btn-icon btn-circle btn-lg" ng-if="file.downloadfile == '1'" href="{{file.imageurl}}" target="_blank"><i class="fa fa-eye"></i></a>
+
+                                        </div>
+                                        <div ng-if="file.downloadfile == '0'" >
+                                            <button class="btn btn-warning btn-icon btn-circle btn-lg" ng-if="file.status == 'none'" ng-click="getFileDownload($index, file.command)" target="_blank">
+                                                <i class="fa fa-download"></i>
+                                            </button>
+                                            <button class="btn btn-warning btn-icon btn-circle btn-lg" ng-if="file.status == 'download'"  href="">
+                                                <i class="fa fa-refresh  fa-spin fa-fw"></i>
+                                                <span class="sr-only">Loading...</span>
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="">
+                <div class="panel panel-inverse">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Recent Location (Update On: {{applist.location.datetime}})</h2>
+                    </div>
+                    <div class="panel-body">
+                        <div id="locationframdata"></div>
+
+                    </div>
+                </div>
+                <div class="panel panel-inverse">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Recent Activity</h2>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="media-list">
+                            <li class="media media-sm" ng-repeat="notify in applist.notifications">
+                                <a class="media-left" href="javascript:;">
+                                    <img src="{{notify.app_info.image}}" alt="" class="media-object rounded-corner">
+                                </a>
+                                <div class="media-body">
+                                    <h4 class="media-heading" style="font-size: 15px">{{notify.notification_title}}</h4>
+                                    <p>
+                                        {{notify.notification_body}}     
+                                    </p>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="panel panel-inverse">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Recent Record Sound</h2>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="media-list media-list-with-divider media-messaging">
+                            <li class="media media-sm" ng-repeat="file in applist.soundfiles">
+
+                                <div class="media">
+                                    <div class="media-left">
+                                        <a href="#">
+                                            <img class="media-object" src="<?php echo base_url() . "assets/images/" . "sound.jpg"; ?>" alt="..." style="height: 50px;width:50px ">
+                                        </a>
+                                    </div>
+                                    <div class="media-body">
+                                        <p class="media-heading"><b>{{file.file_name}}</b></p>
+                                        <p>{{file.file_path}}</p>
+                                        <div class="">
+                                            <div ng-if="file.downloadfile == '1'" >
+                                                <a class="btn btn-success  btn-sm" ng-if="file.downloadfile == '1'" href="{{file.imageurl}}" target="_blank"><i class="fa fa-eye"></i>   View File</a>
+
+                                            </div>
+                                            <div ng-if="file.downloadfile == '0'" >
+                                                <button class="btn btn-warning   btn-sm" ng-if="file.status == 'none'" ng-click="getFileDownload($index, file.command)" target="_blank">
+                                                    <i class="fa fa-download"></i> Download File
+                                                </button>
+                                                <button class="btn btn-warning   btn-ng" ng-if="file.status == 'download'"  href="">
+                                                    <i class="fa fa-refresh  fa-spin fa-fw"></i>
+                                                    <span class="sr-only">Loading...</span>
+                                                    Loading...
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="row">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="opentimemodel" tabindex="-1" role="dialog" aria-labelledby="changePassword">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <form action="#" method="post">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">{{selectCommand.title}}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="hidden" name="command" value="{{selectCommand.command}}">
+                        <input type="hidden" name="timing" value="fixed_time">
+                        <label for="exampleInputEmail1">Set Timing</label>
+                        <select class="form-control" name="attr">
+                            <?php
+                            foreach ($timingarray as $key => $value) {
+                                ?>
+                                <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+                            <?php }
+                            ?>
+                        </select>
+                    </div>
+
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="submit" name="send_command" value="sendCommand" class="btn btn-primary">Send Command</button>
+
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 </div>
 <?php
 $this->load->view('layout/footer');
