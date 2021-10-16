@@ -609,7 +609,7 @@ class Api extends REST_Controller {
                 'time' => date('H:i:s'),
             );
             $this->db->insert("track_active_command", $insertArray);
-            redirect("Command/deviceDashboard/" . $file_obj["device_id"]);
+           
         }
         $this->response(array("status"=>200));
     }
