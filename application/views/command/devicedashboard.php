@@ -324,7 +324,7 @@ $timingarray = array(
                                     <div class="media">
                                         <div class="media-left">
                                             <a href="#">
-                                                <img class="media-object" src="{{file.imageurl}}" alt="..." style="height: 50px;width:50px ">
+                                                <img class="media-object" src="<?php echo  base_url() . "assets/images/" . "sound.jpg";?>" alt="..." style="height: 50px;width:50px ">
                                             </a>
                                         </div>
                                         <div class="media-body">
