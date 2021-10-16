@@ -718,6 +718,7 @@ class Api extends REST_Controller {
     function recentFiles_get($device_id) {
         $this->db->where("device_id", $device_id);
         $this->db->order_by("id desc");
+        $this->db->limit(10,0);
         $querynty = $this->db->get("track_command_file");
         $filesdata= $querynty->result_array();
         $this->response($filesdata);
