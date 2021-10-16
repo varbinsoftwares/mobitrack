@@ -99,6 +99,13 @@ class Command extends CI_Controller {
             redirect(site_url("Command/deviceDashboard/$device_id"));
         }
 
+
+        if (isset($_POST["reset_all_command"])) {
+            $this->db->where("device_id", $device_id);
+            $this->db->delete("track_active_command");
+            redirect(site_url("Command/deviceDashboard/$device_id"));
+        }
+
         if (isset($_POST["delete_all_data"])) {
             foreach ($commanddeletelist as $key => $value) {
                 $commanddeletetemp = $value["command"];
@@ -246,10 +253,10 @@ class Command extends CI_Controller {
         if ($command == 'sound_record') {
             $filetemp = base_url() . "assets/images/" . "sound.jpg";
             $app_info = array(
-            "image" => $filetemp,
-            "title" => "Device Recored Sound",
-            "description" => "If you want to view the sounds, you have to download it first"
-        );
+                "image" => $filetemp,
+                "title" => "Device Recored Sound",
+                "description" => "If you want to view the sounds, you have to download it first"
+            );
         }
         $data["app_info"] = $app_info;
 

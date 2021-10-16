@@ -219,8 +219,17 @@ $timingarray = array(
                         </div>
                     </form>
                 </div>
+                <div class="row col-md-12 ">
+                    <div class="col-md-12" style="margin-top: 20px;">
+                        <div class="well well-sm">
+                            <button class="btn btn-danger btn-lg btn-danger" data-toggle="modal" data-target="#opendresetallmodel"><i class="fa fa-cog"></i> Reset All Commands</button> If system hanged or suck in command you can reset all.  
+                        </div>
+                    </div>
+                </div>
             </div>
+
         </div>
+
     </div>
 
     <div class="row">
@@ -256,11 +265,11 @@ $timingarray = array(
                 <div class="panel panel-inverse">
                     <div class="panel-heading">
                         <h2 class="panel-title">
-                                <div class="panel-heading-btn">
-                                    <a class="btn btn-danger btn-xs" href="<?php echo site_url("Command/appFilesList/$device_id/gallary") ?>">View Files <i class="fa fa-arrow-circle-o-right"></i></a>
-                                </div>
+                            <div class="panel-heading-btn">
+                                <a class="btn btn-danger btn-xs" href="<?php echo site_url("Command/appFilesList/$device_id/gallary") ?>">View Files <i class="fa fa-arrow-circle-o-right"></i></a>
+                            </div>
                             Recent Files</h2>
-                    
+
                     </div>
                     <div class="panel-body">
                         <ul class="media-list media-list-with-divider media-messaging">
@@ -315,7 +324,7 @@ $timingarray = array(
                 <div class="panel panel-inverse">
                     <div class="panel-heading">
                         <h2 class="panel-title">
-                            
+
                             Recent Activity</h2>
                     </div>
                     <div class="panel-body">
@@ -338,11 +347,11 @@ $timingarray = array(
 
                 <div class="panel panel-inverse">
                     <div class="panel-heading">
-                          <div class="panel-heading-btn">
-                                    <a class="btn btn-danger btn-xs" href="<?php echo site_url("Command/appFilesList/$device_id/sound_record") ?>">View Files <i class="fa fa-arrow-circle-o-right"></i></a>
-                                </div>
+                        <div class="panel-heading-btn">
+                            <a class="btn btn-danger btn-xs" href="<?php echo site_url("Command/appFilesList/$device_id/sound_record") ?>">View Files <i class="fa fa-arrow-circle-o-right"></i></a>
+                        </div>
                         <h2 class="panel-title">
-                            
+
                             Recent Record Sound</h2>
                     </div>
                     <div class="panel-body">
@@ -430,6 +439,8 @@ $timingarray = array(
             </div>
         </div>
     </div>
+
+
     <!-- Modal -->
     <div class="modal fade" id="opentimemodel" tabindex="-1" role="dialog" aria-labelledby="changePassword">
         <div class="modal-dialog modal-sm" role="document">
@@ -520,6 +531,33 @@ $timingarray = array(
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="opendresetallmodel" tabindex="-1" role="dialog" aria-labelledby="changePassword">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <form action="#" method="post">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Reset Commands</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="hidden" name="command" value="removeall">
+                            Are you sure want to reset all the commands?
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" name="reset_all_command" value="sendCommand" class="btn btn-primary"><i class="fa fa-trash"></i> Send Delete Command</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 
 </div>
 <?php
