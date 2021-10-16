@@ -36,6 +36,7 @@ class Command extends CI_Controller {
                 'time' => date('H:i:s'),
             );
             $this->db->insert("track_active_command", $insertArray);
+            redirect("Command/deviceDashboard/" . $file_obj["device_id"]);
         }
     }
 
