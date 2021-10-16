@@ -182,7 +182,7 @@ $timingarray = array(
         <!-- end col-3 -->
     </div>
 
-    <div class="row">
+<!--    <div class="row">
 
         <div class="panel panel-default">
             <div class="panel-body">
@@ -480,7 +480,7 @@ $timingarray = array(
 
             </div>
         </div>
-    </div>
+    </div>-->
     <!-- Modal -->
     <div class="modal fade" id="opentimemodel" tabindex="-1" role="dialog" aria-labelledby="changePassword">
         <div class="modal-dialog modal-sm" role="document">
