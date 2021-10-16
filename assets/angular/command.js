@@ -1,9 +1,10 @@
 Admin.controller('commandControlDashboard', function ($scope, $http, $timeout, $interval) {
     $scope.selectCommand = {"command": "", "title": ""};
     $scope.setCommand = function (title, command) {
-
+        console.log(title, command);
         $scope.selectCommand.command = command;
         $scope.selectCommand.title = title;
+        $("#opentimemodel").modal("show");
     }
 
 
@@ -14,7 +15,7 @@ Admin.controller('commandControlDashboard', function ($scope, $http, $timeout, $
         "recentfiles": [],
         "soundfiles": [],
         "countdata": {},
-        "commands":{}
+        "commands": {}
     };
 
     //notification function

@@ -295,7 +295,7 @@ $timingarray = array(
                             <i class="fa fa-circle activebutton {{value.checkactive? 'blink_me' : ''}}"></i>
                             <div class="iconblock "><i class="{{value.icon}} fa-2x"></i></div>
                             <div ng-if="value.timing == 'fixed_time'">
-                                <button type="button" data-toggle="modal" ng-disabled="value.checkactive" data-target="#opentimemodel"   class="btn btn-success btn-block" ng-click="setCommand(value.title, value.command)"> {{value.title}} </button>
+                                <button type="button"  ng-disabled="value.checkactive"    class="btn btn-success btn-block" ng-click="setCommand(value.title, value.command)"> {{value.title}} </button>
                                 <p>
                                     Timing: {{value.attr / 1000}} Min.
                                 </p>
@@ -481,7 +481,7 @@ $timingarray = array(
 
         </div>
     </div>
-</div>
+
 <!-- Modal -->
 <div class="modal fade" id="opentimemodel" tabindex="-1" role="dialog" aria-labelledby="changePassword">
     <div class="modal-dialog modal-sm" role="document">
