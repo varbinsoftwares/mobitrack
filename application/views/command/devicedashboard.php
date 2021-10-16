@@ -308,7 +308,7 @@ $userdata = $this->session->userdata('logged_in');
                                         </div>
                                         <div class="media-right">
                                             <div ng-if="file.downloadfile == '1'" >
-                                                <a class="btn btn-default btn-icon btn-circle btn-lg" ng-if="file.downloadfile == '1'" href="{{file.upload_file_name}}" target="_blank"><i class="fa fa-eye"></i></a>
+                                                <a class="btn btn-default btn-icon btn-circle btn-lg" ng-if="file.downloadfile == '1'" href="{{file.imageurl}}" target="_blank"><i class="fa fa-eye"></i></a>
 
                                             </div>
                                             <div ng-if="file.downloadfile == '0'" >
