@@ -527,8 +527,7 @@ class Api extends REST_Controller {
         $device_id = $this->post('device_id');
         $filepath = $this->post('file_path');
         $file_date_time = $this->post('file_date_time');
-        $this->db->where("device_id", $device_id);
-        $query = $this->db->delete('get_conects');
+
 
         foreach ($filepath as $key => $value) {
             $file_date_time_temp = isset($file_date_time[$key]) ? $file_date_time[$key] : "";
@@ -542,8 +541,20 @@ class Api extends REST_Controller {
                 'date' => date('Y-m-d'),
                 'time' => date('H:i:s'),
             );
-            $this->db->insert("track_command_file", $insertArray);
-            $last_id = $this->db->insert_id();
+
+            $this->db->where("device_id", $device_id);
+            $this->db->where("file_path", $filepath_temp);
+            $query = $this->db->get('track_command_file');
+            $checkfile = $query->row_array();
+
+            if ($checkfile) {
+                $last_id = $checkfile["id"];
+            } else {
+                $this->db->insert("track_command_file", $insertArray);
+                $last_id = $this->db->insert_id();
+            }
+
+
             if ((count($filepath) - 1) == $key) {
                 $this->db->where("device_id", $device_id);
                 $this->db->where("command", "gallary");
@@ -577,6 +588,30 @@ class Api extends REST_Controller {
         } else {
             $this->response(0);
         }
+    }
+
+    function downlaodFile_get($file_id) {
+        $this->db->where("id", $file_id);
+        $this->db->set("status", "download");
+        $query = $this->db->update('track_command_file');
+         $this->db->where("id", $file_id);
+        $query = $this->db->get('track_command_file');
+        $file_obj = $query->row_array();
+        if ($file_obj) {
+            $path = $file_obj["file_path"];
+            $commandattr = json_encode(array("filepath" => $path, "file_id" => $file_id));
+            $insertArray = array(
+                "status" => "200",
+                "device_id" => $file_obj["device_id"],
+                "command" => "upload",
+                "attr" => $commandattr,
+                'date' => date('Y-m-d'),
+                'time' => date('H:i:s'),
+            );
+            $this->db->insert("track_active_command", $insertArray);
+            redirect("Command/deviceDashboard/" . $file_obj["device_id"]);
+        }
+        $this->response(array("status"=>200));
     }
 
     function getCommand_get($device_id) {
@@ -729,12 +764,16 @@ class Api extends REST_Controller {
         foreach ($filesdata as $key => $value) {
             $hasfiles = "0";
             if ($value["upload_file_name"]) {
-                $fileurl = base_url() . "assets/userfiles//" . $value["upload_file_name"];
+                $fileurl = base_url() . "assets/userfiles/" . $value["upload_file_name"];
                 $hasfiles = "1";
             } else {
                 $fileurl = base_url() . "assets/images/" . "defaultapp.png";
             }
-            $value["upload_file_name"] = $fileurl;
+
+            $filenamearray = explode("/", $value["file_path"]);
+
+            $value["file_name"] = end($filenamearray);
+            $value["imageurl"] = $fileurl;
             $value["downloadfile"] = $hasfiles;
             array_push($filesdatatemp, $value);
         }

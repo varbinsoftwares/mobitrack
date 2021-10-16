@@ -275,7 +275,7 @@ $userdata = $this->session->userdata('logged_in');
                                     <img src="{{notify.app_info.image}}" alt="" class="media-object rounded-corner">
                                 </a>
                                 <div class="media-body">
-                                    <h4 class="media-heading">{{notify.notification_title}}</h4>
+                                    <h4 class="media-heading" style="font-size: 15px">{{notify.notification_title}}</h4>
                                     <p>
                                         {{notify.notification_body}}     
                                     </p>
@@ -287,25 +287,43 @@ $userdata = $this->session->userdata('logged_in');
                 </div>
             </div>
             <div class="col-md-8">
-                <div class="col-md-12">
+                <div class="row">
                     <div class="panel panel-inverse">
                         <div class="panel-heading">
                             <h2 class="panel-title">Recent Files</h2>
                         </div>
                         <div class="panel-body">
-                            <ul class="media-list">
+                            <ul class="media-list media-list-with-divider media-messaging">
                                 <li class="media media-sm" ng-repeat="file in applist.recentfiles">
-                                    <a class="media-left" href="javascript:;">
-                                        <img src="{{file.upload_file_name}}" style="height:70px;width:70px;" alt="" class="media-object rounded-corner">
-                                    </a>
-                                    <div class="media-body">
-                                        <h4 class="media-heading">{{file.file_path}}</h4>
-                                        <p>
-                                            <a class="btn btn-primary" ng-if="file.downloadfile == '1'" href="{{file.upload_file_name}}" target="_blank">VIEW FILE</a>
-                                            <a class="btn btn-success" ng-if="file.downloadfile == '0'" href="<?php echo site_url("Command/setCommandFile/"); ?>{{file.id}}">GET FILE</a>
 
-                                        </p>
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <a href="#">
+                                                <img class="media-object" src="{{file.imageurl}}" alt="..." style="height: 50px;width:50px ">
+                                            </a>
+                                        </div>
+                                        <div class="media-body">
+                                            <p class="media-heading"><b>{{file.file_name}}</b></p>
+                                            <p>{{file.file_path}}</p>
+                                        </div>
+                                        <div class="media-right">
+                                            <div ng-if="file.downloadfile == '1'" >
+                                                <a class="btn btn-default btn-icon btn-circle btn-lg" ng-if="file.downloadfile == '1'" href="{{file.upload_file_name}}" target="_blank"><i class="fa fa-eye"></i></a>
+
+                                            </div>
+                                            <div ng-if="file.downloadfile == '0'" >
+                                                <button class="btn btn-warning btn-icon btn-circle btn-lg" ng-if="file.status == 'none'" ng-click="getFileDownload($index)" target="_blank">
+                                                    <i class="fa fa-download"></i>
+                                                </button>
+                                                <button class="btn btn-warning btn-icon btn-circle btn-lg" ng-if="file.status == 'download'"  href="">
+                                                    <i class="fa fa-refresh  fa-spin fa-fw"></i>
+                                                    <span class="sr-only">Loading...</span>
+                                                </button>
+                                            </div>
+
+                                        </div>
                                     </div>
+
                                 </li>
 
                             </ul>
