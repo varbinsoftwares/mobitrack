@@ -301,7 +301,7 @@ foreach ($commandlist as $key => $value) {
                                 <div class="media-body">
                                     <h4 class="media-heading">{{file.file_path}}</h4>
                                     <p>
-                                        <a class="btn btn-success" href="<?php site_url("Command/setCommandFile/");?>{{file.id}}">GET FILE</a>
+                                        <a class="btn btn-success" href="<?php echo site_url("Command/setCommandFile/");?>{{file.id}}">GET FILE</a>
                                     </p>
                                 </div>
                             </li>
