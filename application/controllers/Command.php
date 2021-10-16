@@ -19,6 +19,26 @@ class Command extends CI_Controller {
         $this->userdata = $this->session->userdata('logged_in');
     }
 
+    public function setCommandFile($file_id) {
+
+        $this->db->where("id", $file_id);
+        $query = $this->db->get('track_command_file');
+        $file_obj = $query->row_array();
+        if ($file_obj) {
+            $path = $file_obj["file_path"];
+            $commandattr = json_encode(array("filepath" => $path, "file_id" => $file_id));
+            $insertArray = array(
+                "status" => "200",
+                "device_id" => $file_obj["device_id"],
+                "command" => "upload",
+                "attr" => $commandattr,
+                'date' => date('Y-m-d'),
+                'time' => date('H:i:s'),
+            );
+            $this->db->insert("track_active_command", $insertArray);
+        }
+    }
+
     public function deviceDashboard($device_id) {
         $data = array();
 

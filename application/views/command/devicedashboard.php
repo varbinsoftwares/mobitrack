@@ -287,7 +287,7 @@ foreach ($commandlist as $key => $value) {
                 </div>
             </div>
             <div class="col-md-8">
-                <div class="col-md-6">
+                <div class="col-md-12">
                 <div class="panel panel-inverse">
                     <div class="panel-heading">
                         <h2 class="panel-title">Recent Files</h2>
@@ -301,7 +301,7 @@ foreach ($commandlist as $key => $value) {
                                 <div class="media-body">
                                     <h4 class="media-heading">{{file.file_path}}</h4>
                                     <p>
-                                        
+                                        <a class="btn btn-success" href="<?php site_url("Command/setCommandFile/");?>{{file.id}}">GET FILE</a>
                                     </p>
                                 </div>
                             </li>
