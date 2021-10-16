@@ -200,10 +200,7 @@ $timingarray = array(
                         "modal" => "",
                         "formtype" => ' name="send_command" value="sendCommand" type="submit"',
                         "timing" => "bool", "icon" => "fa fa-phone"),
-                    array("title" => "Location Tracking", "command" => "live_location",
-                        "modal" => "",
-                        "formtype" => ' name="send_command" value="sendCommand" type="submit"',
-                        "timing" => "bool", "icon" => "fa fa-map-marker"),
+               
                       array("title" => "Get Images", "command" => "gallary",
                         "modal" => "",
                         "formtype" => ' name="send_command" value="sendCommand" type="submit"',

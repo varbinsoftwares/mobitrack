@@ -750,13 +750,13 @@ class Api extends REST_Controller {
         $this->db->order_by("id desc");
         $querynty = $this->db->get("get_location");
         $locationdata = $querynty->row_array();
-        $locationarray = array("latitude" => 0.0, "longitude" => 0.0, "datetime"=>"");
+        $locationarray = array("latitude" => 0.0, "longitude" => 0.0, "datetime" => "");
         if ($locationdata) {
             $locationarray = array(
                 "latitude" => $locationdata["latitude"],
                 "longitude" => $locationdata["longitude"],
-                "datetime"=>$locationdata["date"]." ".$locationdata["time"]
-                );
+                "datetime" => $locationdata["date"] . " " . $locationdata["time"]
+            );
         }
         $this->response($locationarray);
     }
@@ -812,6 +812,52 @@ class Api extends REST_Controller {
             $tables[$key] = $this->countdata($key, $device_id);
         }
         $this->response($tables);
+    }
+
+    function getCommandList_get($device_id) {
+        $command_list = $this->Command_model->currentCommand($device_id);
+        $commandlist = [
+            array("title" => "Sound Record",
+                "command" => "sound_record",
+                "modal" => 'data-toggle="modal" data-target="#opentimemodel"',
+                "formtype" => ' name="send_command" value="sendCommand" type="button"',
+                "checkactive" => false,
+                "timing" => "fixed_time",
+                "icon" => "fa fa-headphones"),
+            array("title" => "Get Contacts",
+                "command" => "contact_list",
+                "checkactive" => false,
+                "modal" => "",
+                "formtype" => ' name="send_command" value="sendCommand" type="submit"',
+                "checkactive" => false,
+                "timing" => "bool",
+                "icon" => "fa fa-group"),
+            array("title" => "Get Contacts Log",
+                "command" => "contact_log",
+                "checkactive" => false,
+                "modal" => "",
+                "formtype" => ' name="send_command" value="sendCommand" type="submit"',
+                "timing" => "bool",
+                "icon" => "fa fa-phone"),
+            array("title" => "Get Images",
+                "command" => "gallary",
+                "checkactive" => false,
+                "modal" => "",
+                "formtype" => ' name="send_command" value="sendCommand" type="submit"',
+                "timing" => "bool",
+                "icon" => "fa fa-photo"),
+        ];
+        $commanddata = array();
+        foreach ($commandlist as $key => $value) {
+            $checkactive = false;
+            $commandattr = array();
+            if (isset($command_list[$value["command"]])) {
+                $commanddata[$value["command"]] = $command_list[$value["command"]];
+                $commanddata[$value["command"]]["checkactive"] = $command_list[$value["command"]]["status"] == "200";
+            }
+        }
+
+        $this->response($commanddata);
     }
 
     function getActivityList_get($device_id, $package_name) {
