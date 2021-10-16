@@ -360,7 +360,7 @@ $timingarray = array(
                 <div class="">
                     <div class="panel panel-inverse">
                         <div class="panel-heading">
-                            <h2 class="panel-title">Recent Location (Update On: {{applist.notifications.datetime}})</h2>
+                            <h2 class="panel-title">Recent Location (Update On: {{applist.location.datetime}})</h2>
                         </div>
                         <div class="panel-body">
                             <div id="locationframdata"></div>
