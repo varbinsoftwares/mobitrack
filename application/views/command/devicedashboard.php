@@ -132,7 +132,7 @@ $timingarray = array(
                     <p>{{applist.countdata.get_conects}}</p>	
                 </div>
                 <div class="stats-link">
-                    <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
+                    <a href="<?php echo site_url("Account/getContacts/$device_id");?>">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
                 </div>
             </div>
         </div>
@@ -146,7 +146,7 @@ $timingarray = array(
                     <p>{{applist.countdata.get_call_details}}</p>	
                 </div>
                 <div class="stats-link">
-                    <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
+                    <a href="<?php echo site_url("Account/getCallLog/$device_id");?>">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
                 </div>
             </div>
         </div>
@@ -204,6 +204,10 @@ $timingarray = array(
                         "modal" => "",
                         "formtype" => ' name="send_command" value="sendCommand" type="submit"',
                         "timing" => "bool", "icon" => "fa fa-map-marker"),
+                      array("title" => "Get Images", "command" => "gallary",
+                        "modal" => "",
+                        "formtype" => ' name="send_command" value="sendCommand" type="submit"',
+                        "timing" => "bool", "icon" => "fa fa-photo"),
                 ];
                 foreach ($commandlist as $key => $value) {
                     $checkactive = false;
